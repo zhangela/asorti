@@ -1,0 +1,187 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+<script type='text/javascript'>
+    //validate form: check that all ratings have been entered
+    function validate()
+    {
+        if(!$(".pair_match").is(":checked"))
+        {
+            alert('All pairs ratings haven\'t been entered, please check');
+        }
+        else
+        {
+            document.getElementById('rating').submit();
+        }
+    }
+
+    //set up when document loads
+    $(document).ready(function () {
+        //set draggable property for items in outfit
+        $( ".draggable" ).draggable();
+	$('#loading').hide();
+	$('#all').show();
+        //submit button
+        $('#submit_rating').click(function(event){
+            event.preventDefault();
+            validate();
+        });
+
+        //don't show ratings form until outfit ready
+        $('.items').hide();
+	$('#Jewelry').show();
+        $('.rating_outfit').hide();
+
+        //show various clothing categories when link clicked
+        $('span[id^=type]').click(function () {
+            $(this).attr('id');
+            div_id = $(this).attr('id').split('-')[1];
+	    $('#wait').show();
+	    $('.items').hide();
+	    $('#' + div_id + ' img').load(function() {
+		$('#wait').hide();
+	    });
+	    if($('#' + div_id + ' .last')[0].complete)
+	    {
+		$('#wait').hide();
+	    }
+            $('#'+div_id).show();
+        });
+
+        //when item clicked, add to draggable area to construct outfit
+        $('.item').click(function() {
+            $('#canvas').append('<div style="position: absolute;resize:both;overflow:auto; height:150px; width:90px" id=' + $(this).attr('id') + '-remove class="draggable"></div>');
+            $('#' + $(this).attr('id') + '-remove').offset({ top: Math.floor((Math.random()*170)+30), left: Math.floor((Math.random()*170)+30)});
+            new_elem=$(this).clone();
+            new_elem.attr('id', new_elem.attr('id')+'-copy');
+            new_elem.attr('class', 'outfit_items');
+            $('#' + $(this).attr('id') + '-remove').append(new_elem);
+            new_elem.height('85%');
+            $('#' + $(this).attr('id') + '-remove').append('<br /><button class="remove" onclick=$(this).parent().remove();>Remove</button>');
+            $( ".draggable" ).draggable();
+        });
+
+        //when rate outfit button is clicked, make ratings visible and add pair rating form
+        $('#rate_button').click(function() {
+            all_items = ''
+            $('.outfit_items').each(function(){
+                all_items = all_items + '__and__' + $(this).attr('id');
+            });
+            $('#items').val(all_items);
+            $('.outfit_items_rating').remove();
+            $('.rating_form').remove();
+            $('.rating_outfit').show();
+            $('.outfit_items').each(function(index) {
+                outer_idx = index;
+                outer = $(this);
+                $('.outfit_items').each(function(index){
+                    if (outer_idx < index) {
+                        new_elem = outer.clone();
+                        new_elem.height('100px');
+                        new_elem.attr('class', new_elem.attr('class') + '_rating');
+                        combined_id = 'pair_rating_' + new_elem.attr('id');
+                        $('#rating_pairs').append(new_elem);
+                        new_elem = $(this).clone();
+                        new_elem.height('100px');
+                        new_elem.attr('class', new_elem.attr('class') + '_rating');
+                        combined_id = combined_id + '__and__' + new_elem.attr('id');
+                        $('#rating_pairs').append(new_elem);
+                        $('#rating_pairs').append('&nbsp;&nbsp;&nbsp;<span class="rating_form"> <input class="pair_match" type="radio" name="' + combined_id + '" value="1">Match</input></span>&nbsp;&nbsp;&nbsp;');
+                        $('#rating_pairs').append('<span class="rating_form"> <input type="radio" class="pair_match" name="' + combined_id + '" value="2">No Match</input></span>');
+                        $('#rating_pairs').append('<br />');
+                    }
+                });
+            });     
+        });
+    });
+</script>
+<p id='loading'>Please wait while the page loads, this may take time as we are fetching a large database</p>
+<table id='all' style='display:none'>
+    <tr>
+        <td id='canvas_container' valign='top' style='width:45%;'>
+            <div id='canvas' style='width:500px;height:600px;border-style:solid;border-width:1px;'>
+                <button id='rate_button'>Rate This Outfit</button>
+            </div>
+            <br />
+            <form id='rating' method='post'>{% csrf_token %}
+                <input type='text' id='items' style='visibility:hidden;' name='items'></input>
+                <div class='rating_outfit'>
+                    How would you rate this outfit?* 
+                    <select id='outfit_quality' name='outfit_quality'>
+                        <option value='1'>Great Outfit</option>
+                        <option value='2'>Bad Outfit</option>
+                    </select>
+                    <br /><br />
+
+		    What <b>style</b> is this outfit?*
+		    <select 'id=outfit_style' name='outfit_style'>
+			<option value='1'>Casual</option>
+			<option value='2'>Classic</option>
+			<option value='3'>Conservative</option>
+			<option value='4'>Dramatic</option>
+			<option value='5'>Edgy</option>
+			<option value='6'>Elegant</option>
+			<option value='7'>Feminine</option>
+			<option value='8'>Grunge</option>
+			<option value='9'>Sexy</option>
+			<option value='10'>Vintage</option>
+		    </select>
+		    <br /><br />
+
+
+                    What <b>occasion</b> is this outfit appropriate for?* 
+                    <select id='outfit_occasion' name='outfit_occasion'>
+                        <option value='1'>Black-tie event</option>
+                        <option value='2'>Casual outing</option>
+                        <option value='3'>Date</option>
+                        <option value='4'>Party</option>
+                        <option value='5'>Work</option>
+                    </select>
+                    <br /><br />
+
+		    What <b>weather</b> is the outfit appropriate for?*
+                    <select id='outfit_weather' name='outfit_weather'>
+                        <option value='1'>Hot</option>
+                        <option value='2'>Warm</option>
+                        <option value='3'>Cool</option>
+                        <option value='4'>Cold</option>
+                    </select>
+                    &nbsp;&nbsp;
+                    <input type='checkbox' id='outfit_rainy' name='outfit_rainy'>Rainy</input>
+                    <br />
+                    <br />
+		    Description: <textarea rows='5' cols='50' name='description'>Optional</textarea>
+		    <br />
+		    <br />
+                    Which of these pairs of items from the outfit match?*
+                    <br />
+                    <br />
+                </div>
+                <div id='rating_pairs'>
+                </div>
+                <br /><br/><br/>
+                <button class='rating_outfit' id='submit_rating' style='font-size:1.2em'>Done</button>
+            </form>
+        </td>
+        <td style='width:2%'>
+        </td>
+        <td valign='top'>
+            <div>
+                {% for key, type in types.items %}
+                    <span id='type-{{key}}'>&nbsp;&nbsp;&nbsp;<a href="#">{{key}}</a>&nbsp;&nbsp;&nbsp;</span>
+                {% endfor %}
+
+		<div id='wait' style='display:none'>Loading...</div>
+                <br /><br /><br />
+
+                {% for key, type in types.items %}
+                    <div id='{{key}}' class='items'>
+                        {% for t in type %}
+                            <img class='item {% if forloop.last %}last{% endif %}' src='{{STATIC_URL}}{{t.filename}}' id='{{key}}-{{t.id}}' height=100>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </td>
+    </tr>
+</table>

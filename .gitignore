@@ -1,0 +1,7 @@
+local_settings.py
+data/static/*_large.jpg
+static/*_large.jpg
+*.pyc
+*/*.pyc
+*/*/*.pyc
+*/*.swp

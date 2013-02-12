@@ -1,0 +1,6 @@
+<form id='rating' method='post'>{% csrf_token %}
+{% for pair in pairs %}
+<img src='{{STATIC_URL}}{{pair.0.filename}}' height=100> <img src='{{STATIC_URL}}{{pair.1.filename}}' height=100><input class="pair_match" type="radio" name='pair_rating_{{pair.0.id}}__and__{{pair.1.id}}' value="1">Match</input><input type="radio" class="pair_match" name='pair_rating_{{pair.0.id}}__and__{{pair.1.id}}' value="2">No Match</input><br />
+{% endfor %}
+<button>Done</button>
+</form>
