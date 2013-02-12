@@ -1,4 +1,9 @@
 asorti-v1
 =========
 
-asorti-v1
+Needs:
+
+django
+postgres connector
+simplejson
+beautifulsoup
