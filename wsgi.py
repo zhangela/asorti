@@ -14,9 +14,9 @@ framework.
 
 """
 import os, sys
-sys.path.append('/home/bitnami/apps/django/django_projects/Project/')
-sys.path.append('/home/bitnami/apps/django/django_projects/Project/Project/')
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Project.settings")
+from django.conf import settings 
+sys.path.append(settings.PROJECT_ROOT)
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%s.settings" % settings.PROJECT_DIRNAME)
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
