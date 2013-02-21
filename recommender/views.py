@@ -35,7 +35,7 @@ def get_recommendation_helper(request, input, outfits_used):
     state = UNKNOWN
     outfit = None
     item_id = input.get("item_id")
-    type = input.get("item_type")
+    type = int(input.get("item_type"))
     if (input["class"] == "item"):
         # if item_id in an outfit, return that outfit
         item = Item.objects.get(id=item_id)
