@@ -1,4 +1,5 @@
 local_settings.py
+local_urls.py
 data/static/*_large.jpg
 static/*_large.jpg
 *.pyc

@@ -1,7 +1,27 @@
-<img src = '{{STATIC_URL}}{{item.filename}}'>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script type='text/javascript'>
+    /**
+    $(document).ready(function () {
+        //get item or item type
+        item_type = $(".item").attr("type") 
+        //make request to our view
+        resp = 'getrecommendationbytype/" + item_type 
+        //process the json output
+
+        //put the outfits in the given div
+    }
+    */
+</script>
+
+<img class="item" src = '{{STATIC_URL}}{{item.filename}}' id={{item.id}} type={{item.type}}>
 
 <!-- 
 <p> CATEGORY: {{item.high_level_category}} </p>
 
 <p> Type: {{item.type}} </p>
 -->
+
+<div id="asorti-rec">
+
+</div>
