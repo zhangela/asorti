@@ -51,5 +51,5 @@ class GenericScraper:
         # get price
         # get color
         # get metadata
-        # create item in database and save
+        # create item in database and save #cannot do right now -AZ
         raise "Method not implemented"

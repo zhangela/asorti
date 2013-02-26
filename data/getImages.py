@@ -21,8 +21,8 @@ def make_sure_path_exists(path):
             raise
 
 def main():
-    for key in urls.keys():
-        make_sure_path_exists(key)
+    #for key in urls.keys():
+        #make_sure_path_exists(key)
 
     for key, value in urls.items():
         fd = urllib2.urlopen(value)
