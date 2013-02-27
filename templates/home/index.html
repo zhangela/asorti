@@ -1,0 +1,37 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+<script type = "text/javascript">
+    function form_submit() {
+        alert("here");
+        $("#signup-form").submit();            
+    }
+</script>
+<head>
+    <style>
+    span {color:#fff; font-family:"Arial"}
+    .main-img { display: block; vertical-align:middle;  margin-left: auto; margin-right: auto;}
+    button {display:inline; height:30px}
+    input {height:30px}
+    </style>
+</head>
+<body style='background-color:#000'>
+    <div align='center'>
+    <br /><br /><br />
+    <img class='main-img' src='{{STATIC_URL}}landing-page/landing.gif' width=30% />
+    
+    <img src='{{STATIC_URL}}landing-page/signup-text.png' width=30% />
+    <form id="signup-form" method="post"> {% csrf_token %}
+    <table>
+        <tr>
+        <td><input type="text" name="email" size=30></input></td>
+        <td><a><img onclick="form_submit();" src='{{STATIC_URL}}landing-page/button-signup.png' height=30px/></a></td>
+        </tr>
+    </table>
+    </form>
+    <br /><br/><br />
+    <a href='/'><img src='{{STATIC_URL}}landing-page/button-home.gif' width=4% /></a>
+    <img width=5% />
+    <a href='/'><img src='{{STATIC_URL}}landing-page/button-blog.gif' width=4% /></a>
+ 
+    </div>
+</body>

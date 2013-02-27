@@ -167,6 +167,7 @@ INSTALLED_APPS = (
     'data',
     'ratings',
     'recommender',
+    'home'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -197,6 +198,12 @@ LOGGING = {
         },
     }
 }
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'asortistyle@gmail.com'
+EMAIL_HOST_PASSWORD = 'wolfaz1123'
+EMAIL_PORT = 587
 
 try:
     from local_settings import *
