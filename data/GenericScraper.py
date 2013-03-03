@@ -9,7 +9,15 @@ import os
 import errno
 import re
 
+<<<<<<< HEAD
 class GenericScraper:
+=======
+class GenericScraperClass:
+    # subclasses must define
+    urls = {}
+    type_mapping = {}
+    high_level_category_mapping = {}
+>>>>>>> e2fa226f3ff807dd1bfcfdba0c4d8c9decbd1c9b
 
     urls = {}
     
@@ -27,9 +35,15 @@ class GenericScraper:
 
         # isolate items
         items = self.findItems(parsed)
+<<<<<<< HEAD
 
         # process Items
         for item in items:
+=======
+        
+        for item in items:
+            # processItem
+>>>>>>> e2fa226f3ff807dd1bfcfdba0c4d8c9decbd1c9b
             fd = urllib2.urlopen(item)
             parsed = BeautifulSoup(fd)
             self.processItem(parsed, item, category)
@@ -45,11 +59,13 @@ class GenericScraper:
         # return items
         raise "Method not implemented"
 
+<<<<<<< HEAD
     def processItem(self, parsed, item):
+=======
+    def processItem(self, parsed, item, itemCategory):
+>>>>>>> e2fa226f3ff807dd1bfcfdba0c4d8c9decbd1c9b
         # get image, save
-        # get title
-        # get price
-        # get color
-        # get metadata
-        # create item in database and save #cannot do right now -AZ
+        # set store
+        # get title, price, description, price, color, keywords
+        # set type and high_level_category using dicts from models.py
         raise "Method not implemented"

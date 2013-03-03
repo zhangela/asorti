@@ -167,7 +167,8 @@ INSTALLED_APPS = (
     'data',
     'ratings',
     'recommender',
-    'home'
+    'home',
+    'south'
 )
 
 # A sample logging configuration. The only tangible logging

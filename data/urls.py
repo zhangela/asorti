@@ -3,4 +3,5 @@ from data import views
 
 urlpatterns = patterns('',
     url(r'^item/(?P<item_id>\d+)$', views.get_item, name='get_item'),
+    url(r'^scrape/(?P<store>\w+)$', views.scrape, name='scrape'),
 )
