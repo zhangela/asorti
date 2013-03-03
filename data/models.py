@@ -11,3 +11,8 @@ class Item(models.Model):
     high_level_category = models.IntegerField()
     type = models.IntegerField()
     # need to store the extra info
+    title = models.CharField(max_length=1000, default="")
+    price = models.FloatField(default=-1)
+    description = models.CharField(max_length=5000, default="")
+    keywords = models.CharField(max_length=1000, default="")
+    color = models.CharField(max_length=100, default="")
