@@ -8,10 +8,14 @@ import urllib2
 import os
 import errno
 import re
+import uuid
+from django.conf import settings
+from data.models import *
+from GenericScraper import *
 
+class AbercrombieScraperClass(GenericScraperClass):
 
-class AbercrombieScraper:
-
+    type_mapping = {'tops' : 'tops', 'tees' : 'tops', 'shirts' : 'tops', 'polos' : 'tops', 'hoodies' : 'outerwear', 'shorts' : 'shorts', 'jeans' : 'jeans', 'sweatpants' : 'jeans', 'pants' : 'leggings-pants', 'yoga' : 'jeans', 'skirts' : 'skirts', 'dresses' : 'dresses', 'flipflops' : 'shoes', 'accessories' : 'accessories', 'outerwear' : 'outerwear', 'sweaters' : 'tops'}
 
     urls = {
     "tops": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=120207&catalogId=10901&langId=-1&categoryId=120207&storeId=10051&topCategoryId=12203",
@@ -19,7 +23,7 @@ class AbercrombieScraper:
     "shirts": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=120205&catalogId=10901&langId=-1&categoryId=120205&storeId=10051&topCategoryId=12203",
     "polos": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=119705&catalogId=10901&langId=-1&categoryId=119705&storeId=10051&topCategoryId=12203",
     "hoodies": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=12843&catalogId=10901&langId=-1&categoryId=12843&storeId=10051&topCategoryId=12203",
-    "sweathers": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=12282&catalogId=10901&langId=-1&categoryId=12282&storeId=10051&topCategoryId=12203",
+    "sweaters": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=12282&catalogId=10901&langId=-1&categoryId=12282&storeId=10051&topCategoryId=12203",
     "outerwear": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=12252&catalogId=10901&langId=-1&categoryId=12252&storeId=10051&topCategoryId=12203",
     "shorts": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=12262&catalogId=10901&langId=-1&categoryId=12262&storeId=10051&topCategoryId=12203",
     "jeans": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=12261&catalogId=10901&langId=-1&categoryId=12261&storeId=10051&topCategoryId=12203",
@@ -34,25 +38,6 @@ class AbercrombieScraper:
     
     store = "Abercrombie"
 
-    def scrape(self):
-        for category in self.urls.keys():
-            self.scrapeCategory(category)
-
-    def scrapeCategory(self, category):
-        # read page using beautiful soup
-        fd = urllib2.urlopen(self.urls[category])
-        parsed = BeautifulSoup(fd)
-
-        # isolate items
-        items = self.findItems(parsed)
-
-        # process Items
-        for item in items:
-            fd = urllib2.urlopen(item)
-            parsed = BeautifulSoup(fd)
-            self.processItem(parsed, item, category)
-
-
     # takes in page parsed by beautiful soup and produces 
     # a list of item (url + possibly some metadata), i.e.
     # produces a list of tuples. Assume that the first entry
@@ -66,31 +51,32 @@ class AbercrombieScraper:
         return items
 
     def processItem(self, parsed, item, itemCategory):
-
-        category = itemCategory
-        description = ""
-        keywords = ""
-        title = ""
+        d = {}
+        d ['store'] = self.store
+        d['type'] = type[self.type_mapping[itemCategory]]
+        d['high_level_category'] = high_level_category[type_to_high_level_category[self.type_mapping[itemCategory]]]
+        d['description'] = ""
+        d['keywords'] = ""
+        d['title'] = ""
         image = ""
 
-        price = parsed.find('div', class_='price').find(class_='offer-price').getText().replace("$", "")
-        color = parsed.find('span', class_='color').getText()
+        d['price'] = parsed.find('div', class_='price').find(class_='offer-price').getText().replace("$", "")
+        d['color'] = parsed.find('span', class_='color').getText()
         meta = parsed.find_all('meta')
 
         for data in meta:
             strData = str(data)
             if 'property="og:description"' in strData:
-                description = data['content']
+                d['description'] = data['content']
             elif 'name="keywords"' in strData:
-                keywords = data['content']
+                d['keywords'] = data['content'] + ',' + itemCategory
             elif 'property="og:title"' in strData:
-                title = data['content']
+                d['title'] = data['content']
             elif 'property="og:image"' in strData:
                 image = data['content']
 
-        print "TITLE: " + title + ", CATEGORY: " + category + ", PRICE: " + price + ", COLOR: " + color + ", IMAGE: " + image
-        # create item in database and save #cannot do right now -AZ
-
-
-ab = AbercrombieScraper()
-ab.scrape()
+        # save image
+        d['filename'] = image.split('/')[-1].split('?$')[0] + '.png'
+        urllib.urlretrieve(image, settings.STATIC_ROOT + '/' + d['filename'])
+        item = Item(**d)
+        item.save()
