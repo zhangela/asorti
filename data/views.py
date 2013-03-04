@@ -9,5 +9,13 @@ def get_item(request, item_id):
     return render(request, 'data/item.html', context)
 
 def scrape(request, store):
+    print "got scrape request"
     scraper = eval(store + 'ScraperClass')()
-    scraper.scrape()    
+    scraper.scrape()   
+
+def catalog(request):
+    return
+
+def catalog_by_store(request, store):
+    return
+ 

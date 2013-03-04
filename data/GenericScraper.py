@@ -7,7 +7,6 @@ import urllib
 import urllib2
 import os
 import errno
-import re
 
 class GenericScraperClass:
     # subclasses must define
@@ -15,10 +14,7 @@ class GenericScraperClass:
     type_mapping = {}
     high_level_category_mapping = {}
 
-    urls = {}
-    
-    def __init__(self, urls):
-        self.urls = urls
+    store = "Unknown"
 
     def scrape(self):
         for category in self.urls.keys():
@@ -27,18 +23,17 @@ class GenericScraperClass:
     def scrapeCategory(self, category):
         # read page using beautiful soup
         fd = urllib2.urlopen(self.urls[category])
-        parsed = BeautifulSoup(fd)
-
-        # isolate items
+        parsed = BeautifulSoup(fd, 'html.parser')
+        
+	# isolate items
         items = self.findItems(parsed)
-
         
         for item in items:
             # processItem
             fd = urllib2.urlopen(item)
-            parsed = BeautifulSoup(fd)
+            parsed = BeautifulSoup(fd, 'html.parser')
             self.processItem(parsed, item, category)
-
+    
     # subclasses must define
     # takes in page parsed by beautiful soup and produces 
     # a list of item (url + possibly some metadata), i.e.
