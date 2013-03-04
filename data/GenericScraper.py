@@ -9,15 +9,11 @@ import os
 import errno
 import re
 
-<<<<<<< HEAD
-class GenericScraper:
-=======
 class GenericScraperClass:
     # subclasses must define
     urls = {}
     type_mapping = {}
     high_level_category_mapping = {}
->>>>>>> e2fa226f3ff807dd1bfcfdba0c4d8c9decbd1c9b
 
     urls = {}
     
@@ -35,15 +31,10 @@ class GenericScraperClass:
 
         # isolate items
         items = self.findItems(parsed)
-<<<<<<< HEAD
 
-        # process Items
-        for item in items:
-=======
         
         for item in items:
             # processItem
->>>>>>> e2fa226f3ff807dd1bfcfdba0c4d8c9decbd1c9b
             fd = urllib2.urlopen(item)
             parsed = BeautifulSoup(fd)
             self.processItem(parsed, item, category)
@@ -59,11 +50,7 @@ class GenericScraperClass:
         # return items
         raise "Method not implemented"
 
-<<<<<<< HEAD
-    def processItem(self, parsed, item):
-=======
     def processItem(self, parsed, item, itemCategory):
->>>>>>> e2fa226f3ff807dd1bfcfdba0c4d8c9decbd1c9b
         # get image, save
         # set store
         # get title, price, description, price, color, keywords
