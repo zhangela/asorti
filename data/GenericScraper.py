@@ -17,29 +17,23 @@ class GenericScraperClass:
     store = "Unknown"
 
     def scrape(self):
-	print len(self.urls.keys())
         for category in self.urls.keys():
             self.scrapeCategory(category)
-	    break
 
     def scrapeCategory(self, category):
         # read page using beautiful soup
-	print "urllibed before"
         fd = urllib2.urlopen(self.urls[category])
-	print "urllibed"
         parsed = BeautifulSoup(fd, 'html.parser')
-	print "bsed"
         
 	# isolate items
         items = self.findItems(parsed)
-	print "items found"
 
         for item in items:
             # processItem
             fd = urllib2.urlopen(item)
             parsed = BeautifulSoup(fd, 'html.parser')
             self.processItem(parsed, item, category)
-	    return
+    
     # subclasses must define
     # takes in page parsed by beautiful soup and produces 
     # a list of item (url + possibly some metadata), i.e.

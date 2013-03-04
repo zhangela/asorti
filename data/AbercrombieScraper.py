@@ -51,7 +51,6 @@ class AbercrombieScraperClass(GenericScraperClass):
         return items
 
     def processItem(self, parsed, item, itemCategory):
-	print "in processItem"
         d = {}
         d ['store'] = self.store
         d['type'] = type[self.type_mapping[itemCategory]]
@@ -78,6 +77,7 @@ class AbercrombieScraperClass(GenericScraperClass):
 
         # save image
         d['filename'] = image.split('/')[-1].split('?$')[0] + '.png'
-        urllib.urlretrieve(image, settings.STATIC_ROOT + '/' + d['filename'])
+        #TODO: temporarily commented out: figure out file upload in apache
+	#urllib.urlretrieve(image, settings.STATIC_ROOT + '/' + d['filename'])
         item = Item(**d)
-        #item.save()
+        item.save()
