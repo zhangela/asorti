@@ -16,6 +16,7 @@ framework.
 import os, sys
 #from django.conf import settings 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append('/usr/local/lib/python2.7/dist-packages')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 
 # This application object is used by any WSGI server configured to use this

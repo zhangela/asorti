@@ -37,15 +37,13 @@ class AbercrombieScraperClass(GenericScraperClass):
     "accessories":"http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=13060&catalogId=10901&langId=-1&categoryId=13060&storeId=10051&topCategoryId=12203"
     }
     
-    def __init__(self, urls):
-        self.urls = urls
-
     # takes in page parsed by beautiful soup and produces 
     # a list of item (url + possibly some metadata), i.e.
     # produces a list of tuples. Assume that the first entry
     # in list is the url
     def findItems(self, parsed):
-        items = []
+    	print "finding items"
+	items = []
         links = parsed.find_all('h3')
         for link in links:
             if 'data-productid' in str(link):
@@ -53,6 +51,7 @@ class AbercrombieScraperClass(GenericScraperClass):
         return items
 
     def processItem(self, parsed, item, itemCategory):
+	print "in processItem"
         d = {}
         d ['store'] = self.store
         d['type'] = type[self.type_mapping[itemCategory]]
@@ -81,4 +80,4 @@ class AbercrombieScraperClass(GenericScraperClass):
         d['filename'] = image.split('/')[-1].split('?$')[0] + '.png'
         urllib.urlretrieve(image, settings.STATIC_ROOT + '/' + d['filename'])
         item = Item(**d)
-        item.save()
+        #item.save()
