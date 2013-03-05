@@ -27,9 +27,9 @@ def get_recommendation(request, item_id):
             break
         curr_rec = curr_rec + [rec]
         outfits_used = outfits_used + [rec[0]]
-    context = {'outfits' : curr_rec, 'item' : Item.objects.get(id=item_id), 'high_level_category_reverse' : high_level_category_reverse, 'style_reverse' : style_reverse, 'occasion_reverse' : occasion_reverse}
+    context = {'outfits' : curr_rec, 'item' : Item.objects.get(id=item_id), 'high_level_category_reverse' : high_level_category_reverse, 'style_reverse' : style_reverse, 'occasion_reverse' : occasion_reverse, 'type_reverse' : type_reverse}
     print 'context', context
-    return render(request, 'ratings/recommendations.html', context)
+    return render(request, 'recommender/recommendations.html', context)
 
 def get_recommendation_helper(request, input, outfits_used):
     state = UNKNOWN
@@ -65,18 +65,11 @@ def get_recommendation_helper(request, input, outfits_used):
             used_ids = []
             for outfit in outfits_used:
                 used_ids = used_ids + [outfit.id]
-            outfits = Outfit.objects.exclude(id__in = used_ids).filter(rating=quality['Great']).order_by('?')
-            if (len(outfits) > 0):
-                for curr_outfit in outfits:
-                    outfit_items = OutfitItem.objects.filter(outfit=curr_outfit).values('item')
-                    if outfit_items[0].store != store:
-			continue
-		    else:
-                	outfit = curr_outfit
-			break
- 		if outfit == None:
-		    return None
-            else:
+            outfits_temp = OutfitItem.objects.exclude(outfit__id__in = used_ids).filter(outfit__rating=quality['Great'], item__store=store).order_by('?')
+
+            if (len(outfits_temp) > 0):
+            	outfit = outfits_temp[0].outfit
+	    else:
                return None
             state = OUTFIT_WITHOUT_ITEM_TYPE
 

@@ -6,7 +6,7 @@ from data.AbercrombieScraper import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def get_item(request, item_id):
-    context = {'item' : Item.objects.get(id=item_id)}
+    context = {'item' : Item.objects.get(id=item_id), 'type_reverse' : type_reverse}
     return render(request, 'data/item.html', context)
 
 def scrape(request, store):

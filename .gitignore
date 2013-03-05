@@ -7,4 +7,5 @@ static
 */*.pyc
 */*/*.pyc
 */*.swp
+*/*/*.swp
 .DS_Store

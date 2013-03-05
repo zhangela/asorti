@@ -1,0 +1,105 @@
+{% block script %}
+<script type='text/javascript'>
+    /**
+    $(document).ready(function () {
+        //get item or item type
+        item_type = $(".item").attr("type") 
+        //make request to our view
+        resp = 'getrecommendationbytype/" + item_type 
+        //process the json output
+
+        //put the outfits in the given div
+    }
+    */
+</script>
+{% endblock %}
+
+{% load recommender_extra %}
+<div id="product-breadcrumbs">
+    <ul class="product_breadcrumbs">
+        <li>
+            <a href="/data/catalog/">All</a>
+         /</li>
+          <li>
+             <a href="/data/catalog/">Ladies</a>
+          /</li>
+            <li>
+               <strong>
+                  {{type_reverse|get:item.type}}
+               </strong>
+            </li>
+        </ul>
+</div>
+<div class="row">
+          <div id="product-image-box" class="span6">
+                   <img src="{{STATIC_URL}}{{item.filename}}"
+			alt="" id="product-image"
+                       class="FASHION_FRONT" data-type="FASHION_FRONT"/>
+          </div>
+
+          <div class="span6">
+              <span class="product_title">
+                {{item.title}}
+              </span>
+
+              <span class="product_price" id="text-price">
+                  <span >${{item.price}}</span>
+              </span>
+
+              <div class="row">
+                <div class="description span4">
+                  <div class="product_subtitle">Description </div>
+                  <div class="product_description">
+                	{{item.description}}  
+		</div>
+
+                  <div class="product_subtitle">Details </div>
+                  <p>
+                      <span class="product_description" id="text-information">FIX: 59% cotton, 41% polyester.</span>
+                      <span class="product_description" id="text-careInstruction">FIX: Machine wash warm</span>
+                  </p>
+                  <p>
+                    <span class="product_description" id="text-imported">FIX: Imported.</span>
+                  </p>
+                    <ul class="labels">
+                    </ul>
+                </div>
+
+                <div class="details span2">
+                  <div class="product_subtitle">Color</div>
+                    <ul class="options articles clearfix" id="options-articles">
+                      <li class="act" id="product_colors">
+                        <a class="product_description" href=""><span>{{item.color}}</span></a>
+                      </li>
+                    </ul>
+
+                  <div class="product_subtitle">Size</div>
+                    <ul class="options articles clearfix" id="options-articles">
+
+                      <li class="act" id="product_sizes">
+                        <a class="product_description" href=""><span>XS-XL</span></a>
+                      </li>
+                    </ul>
+                </div>
+<!-- END ROW -->
+             </div>
+
+              <button type="submit" class="btn product_button_buy">BUY</button>
+
+          </div>
+      </div>
+
+        </div>
+
+
+      </div>
+
+<!-- 
+<p> CATEGORY: {{item.high_level_category}} </p>
+
+<p> Type: {{item.type}} </p>
+-->
+
+<div id="asorti-rec">
+
+</div>

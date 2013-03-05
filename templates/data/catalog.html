@@ -1,8 +1,11 @@
+{% extends 'home/base.html' %}
+{% block script %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 <script type='text/javascript'>
-    function addParamToUrl(key, value) {
+    $(".nav-link").click( function() {
       _url = location.href;
+      key = $(this).attr('gkey')
+      value = $(this).attr('gvalue')
       notsub = true
       querystr = _url.split('?')[1]
       parts = (querystr ? querystr.split('&') : [])
@@ -16,52 +19,52 @@
       
       _url = '?'+parts.join('&') + (!notsub ? '': '&' + key + '=' + value)
       window.location = _url;
-    }
+    })
 </script>
+{% endblock %}
 
+{% block catalog %}
+<div id="product-breadcrumbs">
+    <ul class="product_breadcrumbs">
+        <li>
+            <a href="/data/catalog/">All</a>
+         /</li>
+        </ul>
+</div>
+<div class="row">
+	<div class="span2">
+      		<span>Stores <br /><br /></span>
+      		<a class="nav-link" gkey='store' gvalue='Abercrombie'>Abercrombie</a> <br />
+      		<a class="nav-link" gkey='store' gvalue='Topshop'>Topshop</a> <br /> <br /> <br />
+      		<span>Category <br /> <br /></span>
+      		<a class="nav-link" gkey='category' gvalue='tops'>Tops</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='leggings-pants'>Pants</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='outerwear'>Outerwear</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='shorts'>Shorts</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='skirts'>Skirts</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='jewelry'>Jewelry</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='dresses'>Dresses</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='accessories'>Accessories</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='shoes'>Shoes</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='jeans'>Jeans</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='bags-and-purses'>Bags</a> <br />
+	</div>
+	<div class="span10">
+		<div class="row">
+		{% for item in items %}
+			<div class="span2">
+				<a href='/recommender/getrecommendation/{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}' width=100%></img></a>
+              			<br />
+              			<span>{{item.title}}</span>
+			</div>
+			{% if forloop.counter|divisibleby:"4" %}
+              		</div><div class="row">
+            		{% endif %}
+		{% endfor %}
+		</div>
+	</div>
+</div>
 
-<table width=100%>
-  <tr>
-    <td colspan=2 width=100%>
-      <div height=20%></div>
-    </td>
-  </tr>
-  <tr>
-    <td width=10% valign="top">
-      Stores <br /><br />
-      <a onclick="addParamToUrl('store','Abercrombie');">Abercrombie</a> <br />
-      <a onclick="addParamToUrl('store','Topshop');">Topshop</a> <br /> <br /> <br />
-      Category <br /> <br />
-      <a onclick="addParamToUrl('category','tops');">Tops</a> <br />
-      <a onclick="addParamToUrl('category','leggings-pants');">Pants</a> <br />
-      <a onclick="addParamToUrl('category','outerwear');">Outerwear</a> <br />
-      <a onclick="addParamToUrl('category','shorts');">Shorts</a> <br />
-      <a onclick="addParamToUrl('category','skirts');">Skirts</a> <br />
-      <a onclick="addParamToUrl('category','jewelry');">Jewelry</a> <br />
-      <a onclick="addParamToUrl('category','dresses');">Dresses</a> <br />
-      <a onclick="addParamToUrl('category','accessories');">Accessories</a> <br />
-      <a onclick="addParamToUrl('category','shoes');">Shoes</a> <br />
-      <a onclick="addParamToUrl('category','jeans');">Jeans</a> <br />
-      <a onclick="addParamToUrl('category','bags-and-purses');">Bags</a> <br />
-    </td>
-    <td width=90%>
-      <table>
-        <tr>
-          {% for item in items %}
-            <td  width=20% style='padding-left:1%;padding-right:1%'>
-              <a href='/recommender/getrecommendation/{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}' width=100%></img></a>
-	      <br />
-	      <span>{{item.title}}</span>
-            </td>
-            {% if forloop.counter|divisibleby:"4" %}
-              </tr><tr>
-            {% endif %}
-          {% endfor %}
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
 <div class="pagination">
     <span class="step-links">
         {% if contacts.has_previous %}
@@ -77,3 +80,4 @@
         {% endif %}
     </span>
 </div>
+{% endblock %}
