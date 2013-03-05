@@ -13,9 +13,18 @@
     }
     */
 </script>
-
-<img class="item" src = '{{STATIC_URL}}{{item.filename}}' id={{item.id}} type={{item.type}}>
-
+<table>
+  <tr>
+  <td width=20%>
+    <img class="item" src = '{{STATIC_URL}}{{item.filename}}' id={{item.id}} type={{item.type}}>
+  </td>
+  <td width=20%>
+    <span>{{item.title}}</span><br />
+    <span>{{item.description}}</span><br />
+    <span>${{item.price}}</span>
+  </td>
+  </tr>
+</table>
 <!-- 
 <p> CATEGORY: {{item.high_level_category}} </p>
 

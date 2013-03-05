@@ -1,0 +1,79 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script type='text/javascript'>
+    function addParamToUrl(key, value) {
+      _url = location.href;
+      notsub = true
+      querystr = _url.split('?')[1]
+      parts = (querystr ? querystr.split('&') : [])
+      for (var i=0;i<parts.length;i++)
+      { 
+	if (parts[i].search(key) != -1) {
+	  parts[i]=key + '=' + value
+          notsub = false
+        }
+      }
+      
+      _url = '?'+parts.join('&') + (!notsub ? '': '&' + key + '=' + value)
+      window.location = _url;
+    }
+</script>
+
+
+<table width=100%>
+  <tr>
+    <td colspan=2 width=100%>
+      <div height=20%></div>
+    </td>
+  </tr>
+  <tr>
+    <td width=10% valign="top">
+      Stores <br /><br />
+      <a onclick="addParamToUrl('store','Abercrombie');">Abercrombie</a> <br />
+      <a onclick="addParamToUrl('store','Topshop');">Topshop</a> <br /> <br /> <br />
+      Category <br /> <br />
+      <a onclick="addParamToUrl('category','tops');">Tops</a> <br />
+      <a onclick="addParamToUrl('category','leggings-pants');">Pants</a> <br />
+      <a onclick="addParamToUrl('category','outerwear');">Outerwear</a> <br />
+      <a onclick="addParamToUrl('category','shorts');">Shorts</a> <br />
+      <a onclick="addParamToUrl('category','skirts');">Skirts</a> <br />
+      <a onclick="addParamToUrl('category','jewelry');">Jewelry</a> <br />
+      <a onclick="addParamToUrl('category','dresses');">Dresses</a> <br />
+      <a onclick="addParamToUrl('category','accessories');">Accessories</a> <br />
+      <a onclick="addParamToUrl('category','shoes');">Shoes</a> <br />
+      <a onclick="addParamToUrl('category','jeans');">Jeans</a> <br />
+      <a onclick="addParamToUrl('category','bags-and-purses');">Bags</a> <br />
+    </td>
+    <td width=90%>
+      <table>
+        <tr>
+          {% for item in items %}
+            <td  width=20% style='padding-left:1%;padding-right:1%'>
+              <a href='/recommender/getrecommendation/{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}' width=100%></img></a>
+	      <br />
+	      <span>{{item.title}}</span>
+            </td>
+            {% if forloop.counter|divisibleby:"4" %}
+              </tr><tr>
+            {% endif %}
+          {% endfor %}
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<div class="pagination">
+    <span class="step-links">
+        {% if contacts.has_previous %}
+            <a onclick="addParamToUrl('page','{{ items.previous_page_number }}');">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+
+        {% if items.has_next %}
+            <a onclick="addParamToUrl('page','{{ items.next_page_number }}');">next</a>
+        {% endif %}
+    </span>
+</div>
