@@ -71,7 +71,7 @@ def getoutfit(request, outfit_id):
     for outfit_item in outfit_items:
         items = items + [outfit_item.item]
     context = {'outfit' : [outfit, items], 'high_level_category_reverse' : high_level_category_reverse, 'occasion_reverse' : occasion_reverse, 'style_reverse' : style_reverse}
-    return render(request, 'ratings/showoutfit.html', context)
+    return render(request, 'recommender/showoutfit.html', context)
 
 def ratepair(request, outfit_id):
     if request.method == 'POST':

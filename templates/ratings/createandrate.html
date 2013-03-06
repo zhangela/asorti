@@ -178,6 +178,7 @@
                     <div id='{{key}}' class='items'>
                         {% for t in type %}
                             <img class='item {% if forloop.last %}last{% endif %}' src='{{STATIC_URL}}{{t.filename}}' id='{{key}}-{{t.id}}' height=100>
+			    <span>{{t.id}}</span>
                         {% endfor %}
                     </div>
                 {% endfor %}

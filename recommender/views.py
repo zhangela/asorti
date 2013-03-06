@@ -14,7 +14,7 @@ UNKNOWN = 0
 OUTFIT_WITH_ITEM = 1
 OUTFIT_WITH_ITEM_TYPE = 2
 OUTFIT_WITHOUT_ITEM_TYPE = 3
-num_rec = 5
+num_rec = 3
 
 def get_recommendation(request, item_id):
     # get rec
@@ -85,6 +85,13 @@ def get_recommendation_helper(request, input, outfits_used):
     if (not (state == OUTFIT_WITH_ITEM) and (input["class"]=="item")):
         items = make_valid_outfit(items, item)
         items = items + [item]
+    top = None
+    for item in items:
+        if (item.type == 'tops') or (item.type == 'dresses'):
+            items.remove(item)
+            top = item
+    if top:
+        items = items + top
     return [outfit, items]
 
 def make_valid_outfit(items, extra_item):

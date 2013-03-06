@@ -21,9 +21,6 @@
             <a href="/data/catalog/">All</a>
          /</li>
           <li>
-             <a href="/data/catalog/">Ladies</a>
-          /</li>
-            <li>
                <strong>
                   {{type_reverse|get:item.type}}
                </strong>
@@ -50,16 +47,16 @@
                 <div class="description span4">
                   <div class="product_subtitle">Description </div>
                   <div class="product_description">
-                	{{item.description}}  
+                	{{item.description_web}}  
 		</div>
 
                   <div class="product_subtitle">Details </div>
                   <p>
-                      <span class="product_description" id="text-information">FIX: 59% cotton, 41% polyester.</span>
-                      <span class="product_description" id="text-careInstruction">FIX: Machine wash warm</span>
+                      <span class="product_description" id="text-information">{{item.details_web}}</span>
+                      <!-- <span class="product_description" id="text-careInstruction">FIX: Machine wash warm</span> -->
                   </p>
                   <p>
-                    <span class="product_description" id="text-imported">FIX: Imported.</span>
+                    <!-- <span class="product_description" id="text-imported">FIX: Imported.</span> -->
                   </p>
                     <ul class="labels">
                     </ul>

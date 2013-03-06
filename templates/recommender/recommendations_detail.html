@@ -5,22 +5,11 @@
 		<span class="product_subtitle">Styles:</span>
 	</div>
 </div>
-<!--
-<table>
-    <tr>
-        {% for outfit in outfits %}
-            <td valign='top'>
-                {% include 'recommender/showoutfit.html' with outfit=outfit ctr=forloop.counter high_level_category_reverse=high_level_category_reverse occasion_reverse=occasion_reverse style_reverse=style_reverse %}
-            </td>
-        {% endfor %}
-    </tr>
-</table>
--->
 
-<div class="row">
+<div class="row" id="outfit_Rec">
 	<div class="span1"></div>
 	{% for outfit in outfits %}
-	<div class="span2">
+	<div class="span4">
 		{% include 'recommender/showoutfit.html' with outfit=outfit ctr=forloop.counter high_level_category_reverse=high_level_category_reverse occasion_reverse=occasion_reverse style_reverse=style_reverse %}
 	</div>
 	{% endfor %}
