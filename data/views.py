@@ -14,7 +14,8 @@ def scrape(request, store):
     scraper.scrape()   
 
 def catalog(request):
-    store = request.GET.get('store', None)
+    #store = request.GET.get('store', None)
+    store = "Abercrombie"
     category = request.GET.get('category', None)
     print store, category
     if store and category:
