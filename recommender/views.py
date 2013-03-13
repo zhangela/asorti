@@ -26,12 +26,13 @@ def get_recommendation(request, item_id):
         if rec == None:
             break
         curr_rec = curr_rec + [rec]
+	print rec[0].id
         outfits_used = outfits_used + [rec[0]]
-    context = {'outfits' : curr_rec, 'item' : Item.objects.get(id=item_id), 'high_level_category_reverse' : high_level_category_reverse, 'style_reverse' : style_reverse, 'occasion_reverse' : occasion_reverse}
-    print 'context', context
-    return render(request, 'ratings/recommendations.html', context)
+    context = {'outfits' : curr_rec, 'item' : Item.objects.get(id=item_id), 'high_level_category_reverse' : high_level_category_reverse, 'style_reverse' : style_reverse, 'occasion_reverse' : occasion_reverse, 'type_reverse' : type_reverse}
+    return render(request, 'recommender/recommendations.html', context)
 
 def get_recommendation_helper(request, input, outfits_used):
+    store = None
     state = UNKNOWN
     outfit = None
     item_id = input.get("item_id")
@@ -42,6 +43,7 @@ def get_recommendation_helper(request, input, outfits_used):
         # if item_id in an outfit, return that outfit
         item = Item.objects.get(id=item_id)
         type = item.type
+        store = item.store
 
         #outfit with item exists
         outfit_items = OutfitItem.objects.exclude(outfit__in = outfits_used).filter(item=item, outfit__rating=quality['Great'])
@@ -52,7 +54,11 @@ def get_recommendation_helper(request, input, outfits_used):
         # outfit with item doesn't exist
         # if not, get item type, pick random outfit containing that type, substitute and return
         # todo: next step - get most similar top that is in an outfit
-        items_with_correct_type = Item.objects.filter(type=type)
+	if store:
+            items_with_correct_type = Item.objects.filter(type=type, store=store)
+        else:
+            items_with_correct_type = Item.objects.filter(type=type)
+
         outfit_items = OutfitItem.objects.filter(item__in = items_with_correct_type, outfit__rating=quality['Great']).exclude(outfit__in = outfits_used)
         if (len(outfit_items) > 0):
             # get the corresponding outfit
@@ -64,10 +70,13 @@ def get_recommendation_helper(request, input, outfits_used):
             used_ids = []
             for outfit in outfits_used:
                 used_ids = used_ids + [outfit.id]
-            outfits = Outfit.objects.exclude(id__in = used_ids).filter(rating=quality['Great']).order_by('?')
-            if (len(outfits) > 0):
-                outfit = outfits[0]
-            else:
+	    if store:
+            	outfits_temp = OutfitItem.objects.exclude(outfit__id__in = used_ids).filter(outfit__rating=quality['Great'], item__store=store).order_by('?')
+	    else:
+		outfits_temp = OutfitItem.objects.exclude(outfit__id__in = used_ids).filter(outfit__rating=quality['Great']).order_by('?')
+            if (len(outfits_temp) > 0):
+            	outfit = outfits_temp[0].outfit
+	    else:
                return None
             state = OUTFIT_WITHOUT_ITEM_TYPE
 
@@ -83,6 +92,13 @@ def get_recommendation_helper(request, input, outfits_used):
     if (not (state == OUTFIT_WITH_ITEM) and (input["class"]=="item")):
         items = make_valid_outfit(items, item)
         items = items + [item]
+    top = None
+    for item in items:
+        if (item.type == 'tops') or (item.type == 'dresses'):
+            items.remove(item)
+            top = item
+    if top:
+        items = top + items
     return [outfit, items]
 
 def make_valid_outfit(items, extra_item):

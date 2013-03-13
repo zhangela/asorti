@@ -18,6 +18,8 @@ class AbercrombieScraperClass(GenericScraperClass):
 
     type_mapping = {'tops' : 'tops', 'tees' : 'tops', 'shirts' : 'tops', 'polos' : 'tops', 'hoodies' : 'outerwear', 'shorts' : 'shorts', 'jeans' : 'jeans', 'sweatpants' : 'jeans', 'pants' : 'leggings-pants', 'yoga' : 'jeans', 'skirts' : 'skirts', 'dresses' : 'dresses', 'flipflops' : 'shoes', 'accessories' : 'accessories', 'outerwear' : 'outerwear', 'sweaters' : 'tops'}
 
+    store = "Abercrombie"
+
     urls = {
     "tops": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=120207&catalogId=10901&langId=-1&categoryId=120207&storeId=10051&topCategoryId=12203",
     "tees": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=120206&catalogId=10901&langId=-1&categoryId=120206&storeId=10051&topCategoryId=12203",

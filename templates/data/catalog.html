@@ -1,0 +1,83 @@
+{% extends 'home/base.html' %}
+{% block script %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type='text/javascript'>
+    $(".nav-link").click( function() {
+      _url = location.href;
+      key = $(this).attr('gkey')
+      value = $(this).attr('gvalue')
+      notsub = true
+      querystr = _url.split('?')[1]
+      parts = (querystr ? querystr.split('&') : [])
+      for (var i=0;i<parts.length;i++)
+      { 
+	if (parts[i].search(key) != -1) {
+	  parts[i]=key + '=' + value
+          notsub = false
+        }
+      }
+      
+      _url = '?'+parts.join('&') + (!notsub ? '': '&' + key + '=' + value)
+      window.location = _url;
+    })
+</script>
+{% endblock %}
+
+{% block catalog %}
+<div id="product-breadcrumbs">
+    <ul class="product_breadcrumbs">
+        <li>
+            <a href="/data/catalog/">All</a>
+         /</li>
+        </ul>
+</div>
+<div class="row">
+	<div class="span2">
+      		<span>Stores <br /><br /></span>
+      		<a class="nav-link" gkey='store' gvalue='Abercrombie'>Abercrombie</a> <br />
+      		<!--<a class="nav-link" gkey='store' gvalue='Topshop'>Topshop</a> --> <br /> <br /> <br />
+      		<span>Category <br /> <br /></span>
+      		<a class="nav-link" gkey='category' gvalue='tops'>Tops</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='leggings-pants'>Pants</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='outerwear'>Outerwear</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='shorts'>Shorts</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='skirts'>Skirts</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='jewelry'>Jewelry</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='dresses'>Dresses</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='accessories'>Accessories</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='shoes'>Shoes</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='jeans'>Jeans</a> <br />
+      		<a class="nav-link" gkey='category' gvalue='bags-and-purses'>Bags</a> <br />
+	</div>
+	<div class="span10">
+		<div class="row">
+		{% for item in items %}
+			<div class="span2">
+				<a href='/recommender/getrecommendation/{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}' width=100%></img></a>
+              			<br />
+              			<span>{{item.title}}</span>
+			</div>
+			{% if forloop.counter|divisibleby:"4" %}
+              		</div><div class="row">
+            		{% endif %}
+		{% endfor %}
+		</div>
+	</div>
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if contacts.has_previous %}
+            <a class="nav-link" gkey='page' gvalue='{{ items.previous_page_number }}'>previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+
+        {% if items.has_next %}
+            <a class="nav-link" gkey='page' gvalue='{{ items.next_page_number }}'>next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

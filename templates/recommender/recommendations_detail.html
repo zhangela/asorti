@@ -1,0 +1,16 @@
+{% load ratings_extra %}
+<div class="row">
+	<div class="span1"></div>
+	<div class="span1">
+		<span class="product_subtitle">Styles:</span>
+	</div>
+</div>
+
+<div class="row" id="outfit_Rec">
+	<div class="span1"></div>
+	{% for outfit in outfits %}
+	<div class="span4">
+		{% include 'recommender/showoutfit.html' with outfit=outfit ctr=forloop.counter high_level_category_reverse=high_level_category_reverse occasion_reverse=occasion_reverse style_reverse=style_reverse %}
+	</div>
+	{% endfor %}
+</div> <!--row-->

@@ -1,0 +1,20 @@
+{% load ratings_extra %}
+<div class="row" id="outfit">
+	<div class="span2" id='accessories_area'>
+	{% for item in outfit.1 %}
+	{% if item.high_level_category == 1 %}
+		<a href='{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}'/></a><br/>
+	{% endif %}
+	{% endfor %}
+	</div>
+	<div class="span2" id='shoes_area'>
+	{% for item in outfit.1 %}
+        {% if item.high_level_category != 1  %}
+                <a href='{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}'/></a><br />
+        {% endif %}
+	{% endfor %}
+	</div>
+</div>
+<span class="product_description">Occasion: {{occasion_reverse|get:outfit.0.occasion}}<br />
+Style: {{style_reverse|get:outfit.0.style}}
+</span>

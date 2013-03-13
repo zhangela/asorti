@@ -43,17 +43,17 @@ def create_and_rate_outfit(request):
         return redirect('createandrate')
     else:
         #if form doesn't validate, show the creation page
-        tops = Item.objects.filter(type = type['tops'])
-        dresses = Item.objects.filter(type = type['dresses'])
-        shoes = Item.objects.filter(type = type['shoes'])
-        accessories = Item.objects.filter(type = type['accessories'])
-        jeans = Item.objects.filter(type = type['jeans'])
-        leggings_pants = Item.objects.filter(type = type['leggings-pants'])
-        bags_and_purses = Item.objects.filter(type = type['bags-and-purses'])
-        jewelry = Item.objects.filter(type = type['jewelry'])
-        skirts = Item.objects.filter(type = type['skirts'])
-        shorts = Item.objects.filter(type = type['shorts'])
-        outerwear = Item.objects.filter(type = type['outerwear'])
+        tops = Item.objects.filter(type = type['tops'], store="Abercrombie")
+        dresses = Item.objects.filter(type = type['dresses'], store="Abercrombie")
+        shoes = Item.objects.filter(type = type['shoes'], store="Abercrombie")
+        accessories = Item.objects.filter(type = type['accessories'], store="Abercrombie")
+        jeans = Item.objects.filter(type = type['jeans'], store="Abercrombie")
+        leggings_pants = Item.objects.filter(type = type['leggings-pants'], store="Abercrombie")
+        bags_and_purses = Item.objects.filter(type = type['bags-and-purses'], store="Abercrombie")
+        jewelry = Item.objects.filter(type = type['jewelry'], store="Abercrombie")
+        skirts = Item.objects.filter(type = type['skirts'], store="Abercrombie")
+        shorts = Item.objects.filter(type = type['shorts'], store="Abercrombie")
+        outerwear = Item.objects.filter(type = type['outerwear'], store="Abercrombie")
         types = [tops, dresses, shoes, accessories, jeans, leggings_pants, bags_and_purses, jewelry, skirts, shorts, outerwear]
 
     context = {'types' : {'Tops' : tops, 'Dresses' : dresses, 'Shoes' : shoes, 'Accessories' : accessories, 'Jeans' : jeans, 'Leggings_and_Pants' : leggings_pants, 'Bags_and_Purses' : bags_and_purses, 'Jewelry' : jewelry, 'Skirts' : skirts, 'Shorts' : shorts, 'Outerwear' : outerwear} }
@@ -71,7 +71,7 @@ def getoutfit(request, outfit_id):
     for outfit_item in outfit_items:
         items = items + [outfit_item.item]
     context = {'outfit' : [outfit, items], 'high_level_category_reverse' : high_level_category_reverse, 'occasion_reverse' : occasion_reverse, 'style_reverse' : style_reverse}
-    return render(request, 'ratings/showoutfit.html', context)
+    return render(request, 'recommender/showoutfit.html', context)
 
 def ratepair(request, outfit_id):
     if request.method == 'POST':
