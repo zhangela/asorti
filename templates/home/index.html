@@ -1,36 +1,106 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
-<script type = "text/javascript">
-    function form_submit() {
-        $("#signup-form").submit();            
-    }
-</script>
-<head>
-    <style>
-    span {color:#fff; font-family:"Arial"}
-    .main-img { display: block; vertical-align:middle;  margin-left: auto; margin-right: auto;}
-    button {display:inline; height:30px}
-    input {height:30px}
-    </style>
-</head>
-<body style='background-color:#000'>
-    <div align='center'>
-    <br /><br /><br />
-    <img class='main-img' src='{{STATIC_URL}}landing-page/landing.gif' width=30% />
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+  <script type = "text/javascript">
+      function form_submit() {
+          $("#signup-form").submit();            
+      }
+  </script>
+
+  <head>
+    <meta charset="utf-8">
+
+
+    <title>Asorti</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Asorti">
     
-    <img src='{{STATIC_URL}}landing-page/signup-text.png' width=30% />
-    <form id="signup-form" method="post"> {% csrf_token %}
-    <table>
-        <tr>
-        <td><input type="text" name="email" size=30></input></td>
-        <td><a><img onclick="form_submit();" src='{{STATIC_URL}}landing-page/button-signup.png' height=30px/></a></td>
-        </tr>
-    </table>
-    </form>
-    <br /><br/><br />
-    <a href='/'><img src='{{STATIC_URL}}landing-page/button-home.gif' width=4% /></a>
-    <img width=5% />
-    <a href='http://blog.asortistyle.com'><img src='{{STATIC_URL}}landing-page/button-blog.gif' width=4% /></a>
- 
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+
+    <!-- Le styles -->
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../assets/css/custom.css" rel="stylesheet">
+
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    
+  </head>
+
+  <body>
+
+    <div id="wrap">
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Asorti</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">HOME</a></li>
+              <li><a href="http://blog.asortistyle.com">BLOG</a></li>
+              <li><a href="#contact">CONTACT</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+
+
+
+        </div>
+      </div>
     </div>
-</body>
+
+    <div class="body-container">
+      <div class="row-fluid">
+        <div class="span4">
+          <img class="homepage-img" src="{{STATIC_URL}}landing-page/langind-page1.png" alt="">
+        </div>
+        <div class="span4">
+          <img class="homepage-img" src="{{STATIC_URL}}landing-page/langind-page2.png" alt="">
+       </div>
+        <div class="span4">
+          <img class="homepage-img" src="{{STATIC_URL}}landing-page/langind-page3.png" alt="">
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="span12">
+          <form method="post" class="form-inline" id="signup-form">  {% csrf_token %}
+            <input name="email" class="span6" type="text"  placeholder="Email address">
+            <button type="submit" onclick="form_submit();" class="btn">Request Invite</button>
+          </form>
+        </div>
+      </div>
+
+    </div> <!-- /body-container -->
+
+    <div id="push"></div>
+</div>
+
+      <footer>
+        <p>&copy; Asorti 2013</p>
+      </footer>
+
+  </body>
+</html>
