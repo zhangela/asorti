@@ -3,6 +3,7 @@ from django.shortcuts import render
 from data.models import *
 from data.GenericScraper import *
 from data.AbercrombieScraper import *
+from data.TopshopScraper import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def get_item(request, item_id):

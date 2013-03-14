@@ -8,7 +8,7 @@ import urllib2
 import os
 import errno
 import requests
-import data.models
+from data.models import *
 
 class GenericScraperClass:
     # subclasses must define
