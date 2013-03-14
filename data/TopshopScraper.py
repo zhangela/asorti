@@ -98,8 +98,8 @@ class TopshopScraperClass(GenericScraperClass):
         d = {}
         d ['store'] = self.store
         d['url'] = item
-        d['type'] = self.type_mapping[itemCategory]
-        #d['high_level_category'] = high_level_category[type_to_high_level_category[self.type_mapping[itemCategory]]]
+        d['type'] = type[self.type_mapping[itemCategory]]
+        d['high_level_category'] = high_level_category[type_to_high_level_category[self.type_mapping[itemCategory]]]
         d['description'] = parsed.find('p', class_='product_description').getText()
         d['keywords'] = ""
         d['title'] = parsed.find('h1').getText()
