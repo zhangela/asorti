@@ -7,6 +7,7 @@ import urllib
 import urllib2
 import os
 import errno
+import requests
 
 class GenericScraperClass:
     # subclasses must define
@@ -22,16 +23,16 @@ class GenericScraperClass:
 
     def scrapeCategory(self, category):
         # read page using beautiful soup
-        fd = urllib2.urlopen(self.urls[category])
+        fd = requests.get(self.urls[category]).content
         parsed = BeautifulSoup(fd, 'html.parser')
         
-	# isolate items
+        # isolate items
         items = self.findItems(parsed)
         
         for item in items:
             # processItem
-            fd = urllib2.urlopen(item)
-            parsed = BeautifulSoup(fd, 'html.parser')
+            content = requests.get(item).content
+            parsed = BeautifulSoup(content)
             self.processItem(parsed, item, category)
     
     # subclasses must define
