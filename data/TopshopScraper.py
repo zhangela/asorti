@@ -1,5 +1,5 @@
 from GenericScraper import *
-import requests
+#import requests
 from HTMLParser import HTMLParser
 
 class TopshopScraperClass(GenericScraperClass):

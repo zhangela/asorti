@@ -38,6 +38,9 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
+      .thanks {
+        color: #EE4289;
+      }
     </style>
     
   </head>
@@ -60,7 +63,7 @@
             <ul class="nav">
               <li class="active"><a href="#">HOME</a></li>
               <li><a href="http://blog.asortistyle.com">BLOG</a></li>
-              <li><a href="#contact">CONTACT</a></li>
+              <li><a href="mailto:asorti@mit.edu">CONTACT</a></li>
             </ul>
           </div><!--/.nav-collapse -->
 
@@ -72,24 +75,40 @@
 
     <div class="body-container">
       <div class="row-fluid">
-        <div class="span4">
-          <img class="homepage-img pull-right" src="{{STATIC_URL}}landing-page/langind-page1.png" alt="">
+      <div class="span3"></div>
+        <div class="span2">
+          <img class="homepage-img" src="{{STATIC_URL}}landing-page/langind-page1.png" alt="">
         </div>
-        <div class="span4">
+        <div class="span2">
           <img class="homepage-img" src="{{STATIC_URL}}landing-page/langind-page2.png" alt="">
        </div>
-        <div class="span4">
-          <img class="homepage-img pull-left" src="{{STATIC_URL}}landing-page/langind-page3.png" alt="">
+        <div class="span2">
+          <img class="homepage-img" src="{{STATIC_URL}}landing-page/langind-page3.png" alt="">
         </div>
+      <div class="span3"></div>
       </div>
 
 
-      <div class="row">
-        <div class="span12 hompeage-signup">
+      <div class="row-fluid">
+        <div class="span12">
+	<div class="span3"></div>
+	<div class="span6">
+	<div class="homepage_text">
+	Asorti is an outfit recommendation engine powered by technology developed at MIT.  <br /> <br />
+
+	We partner with retailers to recommend outfits for every style and occasion. Get instant fashion inspiration and discover new items through Asorti.  <br /> <br />
+	{% if thanks %}
+	<span class="thanks"><i> Thanks for signing up! We will be reaching out to you shortly. </i></span> <br /> <br />
+	{% else %}
+	Signup to be part of our private alpha release. <br /><br />
+	{% endif %}
+		
           <form method="post" class="form-inline" id="signup-form">  {% csrf_token %}
-            <input name="email" class="span6" type="text"  placeholder="Email address">
+            <input name="email" type="text"  placeholder="Email address"> <br /><br />
             <button type="submit" onclick="form_submit();" class="btn">Request Invite</button>
           </form>
+	</div>
+	<div class="span3"></div>
         </div>
       </div>
 

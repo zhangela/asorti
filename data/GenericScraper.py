@@ -7,7 +7,7 @@ import urllib
 import urllib2
 import os
 import errno
-import requests
+#import requests
 from data.models import *
 
 class GenericScraperClass:
