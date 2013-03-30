@@ -15,16 +15,15 @@ def scrape(request, store):
     scraper.scrape()   
 
 def catalog(request):
-    #store = request.GET.get('store', None)
-    store = "Abercrombie"
+    store = request.GET.get('store', None)
     category = request.GET.get('category', None)
     print store, category
     if store and category:
-        items = Item.objects.filter(store=store, type=type[category])
+        items = Item.objects.filter(store=store, type=type[category]).exclude(title="")
     elif store:
-        items = Item.objects.filter(store=store)
+        items = Item.objects.filter(store=store).exclude(title="")
     elif category:
-        items = Item.objects.filter(type=type[category])
+        items = Item.objects.filter(type=type[category]).exclude(title="")
     else:
         items = Item.objects.all()
     

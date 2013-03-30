@@ -35,7 +35,7 @@
 	<div class="span2">
       		<span>Stores <br /><br /></span>
       		<a class="nav-link" gkey='store' gvalue='Abercrombie'>Abercrombie</a> <br />
-      		<!--<a class="nav-link" gkey='store' gvalue='Topshop'>Topshop</a> --> <br /> <br /> <br />
+      		<a class="nav-link" gkey='store' gvalue='Topshop'>Topshop</a> <br /> <br /> <br />
       		<span>Category <br /> <br /></span>
       		<a class="nav-link" gkey='category' gvalue='tops'>Tops</a> <br />
       		<a class="nav-link" gkey='category' gvalue='leggings-pants'>Pants</a> <br />
@@ -53,12 +53,12 @@
 		<div class="row">
 		{% for item in items %}
 			<div class="span2">
-				<a href='/recommender/getrecommendation/{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}' width=100%></img></a>
+				<a href='/recommender/getrecommendation/{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}' style="width:100px;background-color:#FFF;border-radius:10px"></img></a>
               			<br />
               			<span>{{item.title}}</span>
 			</div>
 			{% if forloop.counter|divisibleby:"4" %}
-              		</div><div class="row">
+              		</div><br/><br/><div class="row">
             		{% endif %}
 		{% endfor %}
 		</div>

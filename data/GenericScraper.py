@@ -7,8 +7,9 @@ import urllib
 import urllib2
 import os
 import errno
-#import requests
+import requests
 from data.models import *
+from django.conf import settings
 
 class GenericScraperClass:
     # subclasses must define

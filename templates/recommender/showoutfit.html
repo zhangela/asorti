@@ -1,20 +1,31 @@
 {% load ratings_extra %}
 <div class="row" id="outfit">
+<div class="span4" style="background-color:#FFF;border-radius:10px">
+	<div class="row">
 	<div class="span2" id='accessories_area'>
 	{% for item in outfit.1 %}
 	{% if item.high_level_category == 1 %}
-		<a href='{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}'/></a><br/>
+		<a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/></a><br/>
 	{% endif %}
 	{% endfor %}
 	</div>
+
 	<div class="span2" id='shoes_area'>
 	{% for item in outfit.1 %}
         {% if item.high_level_category != 1  %}
-                <a href='{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}'/></a><br />
+                <a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'><img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/></a><br />
         {% endif %}
 	{% endfor %}
 	</div>
+	</div>
 </div>
-<span class="product_description">Occasion: {{occasion_reverse|get:outfit.0.occasion}}<br />
-Style: {{style_reverse|get:outfit.0.style}}
-</span>
+</div>
+<br /><br />
+<span class="product_description">Occasion: {{occasion_reverse|get:outfit.0.occasion}}&nbsp;|&nbsp; <a>More {{occasion_reverse|get:outfit.0.occasion}}</a> <br />
+Style: {{style_reverse|get:outfit.0.style}}&nbsp;|&nbsp; <a>More {{style_reverse|get:outfit.0.style}}</a>
+</span><br /><br />
+<div class="not_impl">
+<img src="{{STATIC_URL}}img/like.png" style="height:20px"></img>&nbsp;30&nbsp;&nbsp;<img src="http://business.pinterest.com/assets/img/builder/builder_opt_1.png">&nbsp;&nbsp;<a>Comment</a>
+</div>
+<br />
+<button type="submit" class="btn product_button_buy not_impl">BUY OUTFIT</button>

@@ -19,7 +19,7 @@ class Item(models.Model):
     keywords = models.CharField(max_length=1000, default="")
     color = models.CharField(max_length=100, default="")
     store = models.CharField(max_length=100, default="")
-
+    url = models.CharField(max_length=1000, default="")
 
     def description_web(self):
         if '<br><br>' in self.description:

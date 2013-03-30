@@ -13,7 +13,6 @@
     */
 </script>
 {% endblock %}
-
 {% load recommender_extra %}
 <div id="product-breadcrumbs">
     <ul class="product_breadcrumbs">
@@ -21,7 +20,7 @@
             <a href="/data/catalog/">All</a>
          /</li>
 	  <li>
-            <a href="/data/catalog/">Abercrombie</a>
+            <a href="/data/catalog/">{{item.store}}</a>
          /</li>
           <li>
                <strong>
@@ -31,7 +30,7 @@
         </ul>
 </div>
 <div class="row">
-          <div id="product-image-box" class="span6">
+          <div id="product-image-box" class="span6" style="background-color:#FFF;border-radius:10px;text-align: center;vertical-align:center">
                    <img src="{{STATIC_URL}}{{item.filename}}"
 			alt="" id="product-image"
                        class="FASHION_FRONT" data-type="FASHION_FRONT"/>
@@ -69,7 +68,7 @@
                   <div class="product_subtitle">Color</div>
                     <ul class="options articles clearfix" id="options-articles">
                       <li class="act" id="product_colors">
-                        <a class="product_description" href=""><span>{{item.color}}</span></a>
+                        <span class="product_description">{{item.color}}</span>
                       </li>
                     </ul>
 
@@ -77,14 +76,14 @@
                     <ul class="options articles clearfix" id="options-articles">
 
                       <li class="act" id="product_sizes">
-                        <a class="product_description" href=""><span>XS-XL</span></a>
+                        <span class="product_description" href=""><span>XS-XL</span>
                       </li>
                     </ul>
                 </div>
 <!-- END ROW -->
              </div>
 
-              <button type="submit" class="btn product_button_buy">BUY</button>
+              <button type="submit" class="btn product_button_buy not_impl">BUY</button>
 
           </div>
       </div>

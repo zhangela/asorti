@@ -81,5 +81,6 @@ class AbercrombieScraperClass(GenericScraperClass):
         d['filename'] = image.split('/')[-1].split('?$')[0] + '.png'
         #TODO: temporarily commented out: figure out file upload in apache
 	#urllib.urlretrieve(image, settings.STATIC_ROOT + '/' + d['filename'])
-        item = Item(**d)
-        item.save()
+        #item = Item(**d)
+        #item.save()
+	print d

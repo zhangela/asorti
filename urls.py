@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^data/', include('data.urls')),
     url(r'^ratings/', include('ratings.urls')),
     url(r'^recommender/', include('recommender.urls')),
-
+    url(r'^demo/$', 'home.views.demo', name='demo'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

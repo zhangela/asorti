@@ -19,3 +19,6 @@ def home(request):
     context = {'thanks' : thanks}
     context.update(csrf(request))
     return render(request, 'home/index.html', context)
+
+def demo(request):
+    return render(request, 'home/demo.html', {})

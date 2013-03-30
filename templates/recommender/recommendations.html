@@ -1,8 +1,17 @@
 {% extends 'home/base.html' %}
 {% block item %}
 {% include 'data/item_detail.html' with item=item type_reverse=type_reverse%}
+<br /></br>
 {% endblock %}
 
 {% block recommendation %}
 {% include 'recommender/recommendations_detail.html' with outfits=outfits high_level_category_reverse=high_level_category_reverse occasion_reverse=occasion_reverse style_reverse=style_reverse %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+$(function() {
+$( document ).tooltip();
+});
+</script>
 {% endblock %}
