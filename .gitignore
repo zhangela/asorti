@@ -9,3 +9,5 @@ static
 */*.swp
 */*/*.swp
 .DS_Store
+
+Instructions_Postgress.txt
