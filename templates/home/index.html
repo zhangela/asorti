@@ -1,125 +1,193 @@
-
 <!DOCTYPE html>
-
+<!-- saved from url=(0048)http://responsivewebinc.com/premium/mackart/red/ -->
 <html lang="en">
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
-  <script type = "text/javascript">
-      function form_submit() {
-          $("#signup-form").submit();            
-      }
-  </script>
-
   <head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <meta charset="utf-8">
-
-
+    <!-- Title and other stuffs -->
     <title>Asorti</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
+    <meta name="keywords" content="">
     <meta name="author" content="Asorti">
-    
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
-    <![endif]-->
+    <link href="{{STATIC_URL}}css/css" rel="stylesheet" type="text/css">
 
-
-    <!-- Le styles -->
-    <link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- Stylesheets -->
     <link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}css/custom.css" rel="stylesheet">
+    <!-- Pretty Photo -->
+    <link href="{{STATIC_URL}}css/prettyPhoto.css" rel="stylesheet">
+    <!-- Flex slider -->
+    <link href="http://responsivewebinc.com/premium/mackart/red/style/flexslider.css" rel="stylesheet">
+    <!-- Font awesome icon -->
+    <link rel="stylesheet" href="http://responsivewebinc.com/premium/mackart/red/style/font-awesome.css">
+    <!-- Main stylesheet -->
+    <link href="{{STATIC_URL}}css/style.css" rel="stylesheet">
+    <!-- Stylesheet for Color -->
+    <link href="{{STATIC_URL}}css/red.css" rel="stylesheet">
+    <!-- Responsive style (from Bootstrap) -->
+    <link href="{{STATIC_URL}}css/bootstrap-responsive.css" rel="stylesheet">
 
+    <!-- Favicon -->
+    <link href="{{STATIC_URL}}img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <style type="text/css"></style>
 
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .thanks {
-        color: #EE4289;
-      }
-    </style>
-    
   </head>
 
   <body>
-
     <div id="wrap">
-
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
+      <!-- Header starts -->
+      <header>
         <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <div class="row">
+
+            <div class="span4">
+              <!-- Logo. Use class "color" to add color to the text. -->
+              <div class="logo">
+                <h1><a class="brand" href="">Asorti</a></h1>
+                <!--             <p class="meta">Matching making for clothes.</p> -->
+              </div>
+            </div>
+
+            <div class="span8">
+            </div>
+
+          </div>
+        </div>
+      </header>
+      <!-- Header ends -->
+
+      <!-- Navigation -->
+      <div class="navbar">
+       <div class="navbar-inner">
+         <div class="container">
+           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="#">Asorti</a>
+          </a>
           <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">HOME</a></li>
-              <li><a href="http://blog.asortistyle.com">BLOG</a></li>
-              <li><a href="mailto:asorti@mit.edu">CONTACT</a></li>
+           <ul class="nav">
+             <li><a href="http://www.asortistyle.com">Home</a></li>
+             <li><a href="http://blog.asortistyle.com">Blog</a></li>
+             <li><a href="http://www.asortistyle.com/contactus.html">Contact</a></li>
+           </ul>
+         </div>
+       </div>
+     </div>
+   </div>
+
+
+   <!-- Flex Slider starts -->
+
+   <div class="container flex-main">
+    <div class="row">
+      <div class="span12">
+        <div class="flex-image flexslider">
+          <ul class="slides">
+            <!-- Each slide should be enclosed inside li tag. -->
+            <!-- Slide #1 -->
+            <li style="width: 100%; float: left; margin-right: -100%; position: relative; display: none;" class="">
+              <!-- Image -->
+              <img src="{{STATIC_URL}}img/asorti-cover.jpg">
+              <!-- Caption -->
+              <div class="flex-caption">
+                <div class="row">
+                  <div class="span12">
+                    {% if thanks %}
+                    <h4>
+                      <h4><span class="color">Thank you for signing up!</span></h4>
+                      {% else %}
+
+                      <h4>
+                        <span class="color">Sign up to join our private alpha release.</span>
+
+                      </h4>
+                      <form class="form-inline" method="post" id="signup-form"> {% csrf_token %}
+                        <div class="controls controls-row">
+                          <input name="name" class="span3" type="text" placeholder="Name">
+                          <input name="email" class="span3" type="text" placeholder="Email">
+                          <button type="submit" onclick="form_submit();" class="btn btn-info">Sign up</button>
+                        </div>
+                      </form>
+                      {% endif %}
+                      <p>If you have any questions, <a href="mailto:asorti@mit.edu">email us</a>.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
             </ul>
-          </div><!--/.nav-collapse -->
-
-
-
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="body-container">
-      <div class="row-fluid">
-      <div class="span3"></div>
-        <div class="span2">
-          <img class="homepage-img" src="{{STATIC_URL}}landing-page/langind-page1.png" alt="">
-        </div>
-        <div class="span2">
-          <img class="homepage-img" src="{{STATIC_URL}}landing-page/langind-page2.png" alt="">
-       </div>
-        <div class="span2">
-          <img class="homepage-img" src="{{STATIC_URL}}landing-page/langind-page3.png" alt="">
-        </div>
-      <div class="span3"></div>
-      </div>
 
+    <!-- Flex slider ends -->
 
-      <div class="row-fluid">
-        <div class="span12">
-	<div class="span3"></div>
-	<div class="span6">
-	<div class="homepage_text">
-	Asorti is an outfit recommendation engine powered by technology developed at MIT.  <br /> <br />
+    <!-- Below slider starts -->
 
-	We partner with retailers to recommend outfits for every style and occasion. Get instant fashion inspiration and discover new items through Asorti.  <br /> <br />
-	{% if thanks %}
-	<span class="thanks"><i> Thanks for signing up! We will be reaching out to you shortly. </i></span> <br /> <br />
-	{% else %}
-	Signup to be part of our private alpha release. <br /><br />
-	{% endif %}
-		
-          <form method="post" class="form-inline" id="signup-form">  {% csrf_token %}
-            <input name="email" type="text"  placeholder="Email address"> <br /><br />
-            <button type="submit" onclick="form_submit();" class="btn">Request Invite</button>
-          </form>
-	</div>
-	<div class="span3"></div>
+    <div class="sep"></div>
+    <div class="slider-features">
+      <div class="container">
+        <div class="row">
+          <div class="span4">
+            <!-- Title and meta -->
+            <h5><a href="">Outfit recommendation engine.</a></h5>
+            <p class="meta">Developed at MIT, Asorti understands the fashion elements in a good outfit and recommends outfits for every style and occasion.</p>
+            <div class="clearfix"></div>
+          </div>
+          <div class="span4">
+            <h5><a href="">Fashion inspiration.</a></h5>
+            <p class="meta">We deliver instant fashion inpsiration and foster new item discovery for shoppers, all during the sales process.</p>
+            <div class="clearfix"></div>
+          </div>
+          <div class="span4">
+            <h5><a href="">Online expeience.</a></h5>
+            <p class="meta">We partner with retailers to bridge the gap between online and in-store shopping experience, increase sales and customer engagement.</p>
+            <div class="clearfix"></div>
+          </div>
         </div>
       </div>
+    </div>
 
-    </div> <!-- /body-container -->
+    <!-- Below slider ends -->
 
     <div id="push"></div>
+  </div>
+
+  <!-- Footer starts -->
+  <footer>
+    <div class="container">
+      <!-- Copyright info -->
+      <p class="copy" style="text-align: center">Copyright © 2013 | <a href="">Asorti</a> | <a href="">Blog</a> | <a href="">Contact Us</a></p>
+    </div>
+  </div>
+  <div class="clearfix"></div>
 </div>
+</footer>
 
-      <footer>
-        <p>&copy; Asorti 2013</p>
-      </footer>
+<!-- Footer ends -->
 
-  </body>
-</html>
+<!-- JS -->
+<script src="{{STATIC_URL}}js/jquery.js"></script> <!-- jQuery -->
+<script src="{{STATIC_URL}}js/bootstrap.js"></script> <!-- Bootstrap -->
+<script src="{{STATIC_URL}}js/jquery.prettyPhoto.js"></script> <!-- Pretty Photo -->
+<script src="{{STATIC_URL}}js/filter.js"></script> <!-- Filter for support page -->
+<script src="{{STATIC_URL}}js/jquery.tweet.js"></script> <!-- Twitter -->
+<script src="{{STATIC_URL}}js/jquery.flexslider-min.js"></script> <!-- Flex slider -->
+
+<script src="{{STATIC_URL}}js/jquery.carouFredSel-6.1.0-packed.js"></script> <!-- Carousel for recent posts -->
+<script src="{{STATIC_URL}}js/custom.js"></script> <!-- Custom codes -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+<script type = "text/javascript">
+function form_submit() {
+  $("#signup-form").submit();
+}
+</script>
+
+</body></html>
