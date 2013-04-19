@@ -11,3 +11,14 @@ static
 .DS_Store
 
 Instructions_Postgress.txt
+
+
+data/db_dump_2_8_2013.dmp
+data/migrations/0004_initial.py
+distribute-0.6.36.tar.gz
+gcc-42-5666.3-darwin11.pkg
+get-pip.py
+install_superpack.sh
+templates/data/style3.html
+
+
