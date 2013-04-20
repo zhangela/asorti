@@ -16,6 +16,26 @@ OUTFIT_WITH_ITEM_TYPE = 2
 OUTFIT_WITHOUT_ITEM_TYPE = 3
 num_rec = 3
 
+
+def get_associated_items(request, item_id):
+    # get rec
+    input = {"class" : "item", "item_id" : item_id}
+
+    item = Item.objects.get(id=item_id)
+    type = item.type
+    store = item.store
+
+    list_of_associated_items = []
+
+    if item.associatedItems:
+        list_of_associated_items = item.associatedItems
+    else:
+        items_of_the_same_type = list(Item.objects.filter(type=type))
+        list_of_associated_items = random.sample(items_of_the_same_type, num_rec)
+
+    context = {'outfits' : list_of_associated_items, 'item' : Item.objects.get(id=item_id), 'high_level_category_reverse' : high_level_category_reverse, 'style_reverse' : style_reverse, 'occasion_reverse' : occasion_reverse, 'type_reverse' : type_reverse}
+    return render(request, 'recommender/associated_items.html', context)
+
 def get_recommendation(request, item_id):
     # get rec
     input = {"class" : "item", "item_id" : item_id}
@@ -110,10 +130,10 @@ def make_valid_outfit(items, extra_item):
 		 'skirts' : ['jeans', 'shorts', 'dresses', 'leggings-pants'],
 		 'shorts' : ['jeans', 'dresses', 'skirts', 'leggings-pants'],
 		 'leggings-pants' : ['jeans', 'dresses', 'skirts', 'dresses']}
-  
+
     for item in items:
 	if (item_type in to_remove) and (type_reverse[item.type] in to_remove[item_type]):
-	    items.remove(item) 
+	    items.remove(item)
     return items
 
 def get_recommendation_by_type(request, item_type):

@@ -38,8 +38,8 @@ class AbercrombieScraperClass(GenericScraperClass):
     "flipflops": "http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=13056&catalogId=10901&langId=-1&categoryId=13056&storeId=10051&topCategoryId=12203",
     "accessories":"http://www.abercrombie.com/webapp/wcs/stores/servlet/CategoryDisplay?parentCategoryId=13060&catalogId=10901&langId=-1&categoryId=13060&storeId=10051&topCategoryId=12203"
     }
-    
-    # takes in page parsed by beautiful soup and produces 
+
+    # takes in page parsed by beautiful soup and produces
     # a list of item (url + possibly some metadata), i.e.
     # produces a list of tuples. Assume that the first entry
     # in list is the url

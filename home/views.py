@@ -15,7 +15,7 @@ def home(request):
             beta_signup = BetaSignup(email=email, signed_up_on=currTime)
             beta_signup.save()
             send_mail('Asorti Signup', '%s' % email, 'asortistyle@gmail.com',['asorti@mit.edu'], fail_silently=False)
-            thanks = True    
+            thanks = True
     context = {'thanks' : thanks}
     context.update(csrf(request))
     return render(request, 'home/index.html', context)

@@ -1,0 +1,40 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    function showOverlay() {
+    //append to body
+    //alert("hello");
+    //$("#overlay").show();
+    }
+</script>
+<style>
+#overlay {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    width: 80%;
+    height: 50%;
+    background-color: #00F;
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    z-index: 10000;
+}
+</style>
+{% load ratings_extra %}
+<div class="row">
+    <div class="span1"></div>
+    <div class="span6">
+        <span class="product_subtitle" onclick="showOverlay();">Styles:</span>&nbsp;&nbsp;&nbsp;<i> (click on item to see recommendations page for that item)</i>
+    </div>
+</div>
+<br />
+<div class="row" id="outfit_Rec" onclick="showOverlay();">
+    <div class="span1" style="valign=center"></div>
+    {% for outfit in outfits %}
+    <div class="span4">
+        {% include 'recommender/show_associated_items.html' with outfit=outfit ctr=forloop.counter high_level_category_reverse=high_level_category_reverse occasion_reverse=occasion_reverse style_reverse=style_reverse %}
+    </div>
+    {% endfor %}
+    <!--<div class="span1" style="valign=center"><img src="{{STATIC_URL}}nextArrow.png" style="width:150px"></div>-->
+</div> <!--row-->
