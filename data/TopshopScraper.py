@@ -1,3 +1,4 @@
+from pyvirtualdisplay import Display
 from GenericScraper import *
 import requests
 from HTMLParser import HTMLParser
@@ -85,7 +86,11 @@ class TopshopScraperClass(GenericScraperClass):
 
 
     def __init__(self):
+      self.display = Display(visible=0, size=(1024, 768))
+      self.display.start()
       self.browser = webdriver.Firefox()
+      actions = webdriver.ActionChains(self.browser)
+      self.rec_items = {}
 
     # takes in page parsed by beautiful soup and produces
     # a list of item (url + possibly some metadata), i.e.
@@ -124,15 +129,14 @@ class TopshopScraperClass(GenericScraperClass):
         for product in associated_products:
           associated_product_urls.append(product.find('a', class_="product_image").get('href'))
 
-      d['associated_products'] = associated_product_urls
 
       # process images
       image = parsed.find('a', class_="product_view").get('href') if parsed.find('a', class_="product_view") else None
       # save image
       filename = image.split('/')[-1].split('?$')[0] if image else None
+      print filename
       if filename:
-       print filename
-       print d
+       self.rec_items[filename] = associated_product_urls
        if len(Item.objects.filter(filename=filename)) == 0:
         urllib.urlretrieve(image, settings.STATIC_ROOT + '/' + filename)
         d['filename'] = filename
@@ -143,8 +147,17 @@ class TopshopScraperClass(GenericScraperClass):
 
     def scrape(self):
         for category in self.urls.keys():
-            self.scrapeCategory(category)
+            	self.scrapeCategory(category)
         self.browser.quit()
+	display.stop()
+	# go through rec_items dict and add to ScrapedRecommendations
+	for item in self.rec_items:
+		item1 = Item.objects.get(filename=item)
+		for rec_item in self.rec_items[item]:
+			item2 = Item.objects.get(url=rec_item)
+		newScrapedRecommendation = ScrapedRecommendations(item=item1, rec_item=item2)
+		newScrapedRecommendation.save()
+	
 
     def scrapeCategory(self, category):
         # read page using beautiful soup

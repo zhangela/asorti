@@ -32,3 +32,7 @@ class Item(models.Model):
             return self.description.split('<br><br>')[1].replace('<br>', '. ')
         else:
             return "--"
+
+class ScrapedRecommendations(models.Model):
+    item = models.ForeignKey(Item, related_name = 'item')
+    rec_item = models.ForeignKey(Item, related_name = 'rec_item') 

@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from home.models import *
 from django.core.mail import send_mail
@@ -22,3 +22,6 @@ def home(request):
 
 def demo(request):
     return render(request, 'home/demo.html', {})
+
+def mobiledemo(request):
+    return HttpResponseRedirect("http://www.youtube.com/embed/NcFWXho_TCo")
