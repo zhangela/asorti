@@ -90,7 +90,7 @@ class TopshopScraperClass(GenericScraperClass):
       self.display.start()
       self.browser = webdriver.Firefox()
       actions = webdriver.ActionChains(self.browser)
-      self.rec_items = {}
+      self.rec_items_urls = open("temp_rec_items.txt", 'w')
 
     # takes in page parsed by beautiful soup and produces
     # a list of item (url + possibly some metadata), i.e.
@@ -127,7 +127,7 @@ class TopshopScraperClass(GenericScraperClass):
       associated_products = parsed.findAll('div', class_="associated_product")
       if associated_products:
         for product in associated_products:
-          associated_product_urls.append(product.find('a', class_="product_image").get('href'))
+          associated_product_urls.append(str(product.find('a', class_="product_image").get('href')).split("/")[-1].replace("small", "large"))
 
 
       # process images
@@ -136,7 +136,7 @@ class TopshopScraperClass(GenericScraperClass):
       filename = image.split('/')[-1].split('?$')[0] if image else None
       print filename
       if filename:
-       self.rec_items[filename] = associated_product_urls
+        self.rec_items_urls.write(filename +":" + str(associated_product_urls) + "\n")
        if len(Item.objects.filter(filename=filename)) == 0:
         urllib.urlretrieve(image, settings.STATIC_ROOT + '/' + filename)
         d['filename'] = filename
@@ -149,15 +149,19 @@ class TopshopScraperClass(GenericScraperClass):
         for category in self.urls.keys():
             	self.scrapeCategory(category)
         self.browser.quit()
-	display.stop()
-	# go through rec_items dict and add to ScrapedRecommendations
-	for item in self.rec_items:
-		item1 = Item.objects.get(filename=item)
-		for rec_item in self.rec_items[item]:
-			item2 = Item.objects.get(url=rec_item)
-		newScrapedRecommendation = ScrapedRecommendations(item=item1, rec_item=item2)
-		newScrapedRecommendation.save()
-	
+        display.stop()
+        self.rec_items_urls.close()
+        self.rec_items_urls = open("temp_rec_items.txt", 'r')
+	      # go through rec_items dict and add to ScrapedRecommendations
+        for line in self.rec_items_urls:
+          parts = line.split(":")
+        	item1 = Item.objects.get(filename=part[0])
+        	for rec_item in parts[1].split('[')[1].split(']')[0].split(','):
+        		item2 = Item.objects.get(filename=rec_item)
+        	newScrapedRecommendation = ScrapedRecommendations(item=item1, rec_item=item2)
+        	newScrapedRecommendation.save()
+        self.rec_items_urls.close()
+
 
     def scrapeCategory(self, category):
         # read page using beautiful soup
