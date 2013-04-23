@@ -137,13 +137,15 @@ class TopshopScraperClass(GenericScraperClass):
       print filename
       if filename:
         self.rec_items_urls.write(filename +":" + str(associated_product_urls) + "\n")
-       if len(Item.objects.filter(filename=filename)) == 0:
-        urllib.urlretrieve(image, settings.STATIC_ROOT + '/' + filename)
-        d['filename'] = filename
-        item = Item(**d)
-        item.save()
-      else:
-        Item.objects.filter(filename=filename).update(**d)
+        if len(Item.objects.filter(filename=filename)) == 0:
+          print settings.STATIC_ROOT
+          # print settings.STATICFILES_DIRS + '/' + filename
+          urllib.urlretrieve(image, settings.STATIC_ROOT + '/' + filename)
+          d['filename'] = filename
+          item = Item(**d)
+          item.save()
+        else:
+          Item.objects.filter(filename=filename).update(**d)
 
     def scrape(self):
         for category in self.urls.keys():
@@ -155,11 +157,11 @@ class TopshopScraperClass(GenericScraperClass):
 	      # go through rec_items dict and add to ScrapedRecommendations
         for line in self.rec_items_urls:
           parts = line.split(":")
-        	item1 = Item.objects.get(filename=part[0])
-        	for rec_item in parts[1].split('[')[1].split(']')[0].split(','):
-        		item2 = Item.objects.get(filename=rec_item)
-        	newScrapedRecommendation = ScrapedRecommendations(item=item1, rec_item=item2)
-        	newScrapedRecommendation.save()
+          item1 = Item.objects.get(filename=part[0])
+          for rec_item in parts[1].split('[')[1].split(']')[0].split(','):
+            item2 = Item.objects.get(filename=rec_item)
+          newScrapedRecommendation = ScrapedRecommendations(item=item1, rec_item=item2)
+          newScrapedRecommendation.save()
         self.rec_items_urls.close()
 
 
