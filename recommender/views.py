@@ -14,7 +14,7 @@ UNKNOWN = 0
 OUTFIT_WITH_ITEM = 1
 OUTFIT_WITH_ITEM_TYPE = 2
 OUTFIT_WITHOUT_ITEM_TYPE = 3
-num_rec = 3
+num_rec = 6
 
 
 def get_associated_items(request, item_id):
