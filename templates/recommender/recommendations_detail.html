@@ -17,7 +17,7 @@
 
 {% load ratings_extra %}
 
-<div class="container" style="margin-top: 20px;">
+<div class="container">
     <div>
       <span class="product_style">Styles:</span>
       <i> (click on item to see recommendations page for that item)</i>
@@ -26,11 +26,6 @@
 
     <div class="row" id="outfit_Rec">
         <div class="carousel slide row" id="myCarousel" data-interval="false">
-            <ol class="carousel-indicators">
-              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#myCarousel" data-slide-to="1"></li>
-            </ol>
-
           <div class="carousel-inner">
             <div class="item active row">
                 {% for outfit in outfits %}
@@ -43,8 +38,13 @@
                 {% endif %}
                 {% endif %}
                 {% endfor %}
-            </div>
-        </div> <!--carousel-inner-->
+	    </div>
+		
+
+	    <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+            </ol>
 
             <a data-slide="prev" href="#myCarousel" class="left carousel-control">‹</a>
             <a data-slide="next" href="#myCarousel" class="right carousel-control">›</a>
