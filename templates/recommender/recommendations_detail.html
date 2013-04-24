@@ -14,38 +14,40 @@
     z-index: 10000;
 }
 </style>
-{% load ratings_extra %}
-<div class="row">
-        <div class="span1"></div>
-        <div class="span6">
-                <span class="product_subtitle">Styles:</span>&nbsp;&nbsp;&nbsp;<i> (click on item to see recommendations page for that item)</i>
-        </div>
-</div>
-<br />
-<div class="row" id="outfit_Rec">
-    <div class="span1" style="valign=center"></div>
-    <div class="carousel slide row" id="myCarousel" data-interval="false">
-	<ol class="carousel-indicators">
-     	    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-     	    <li data-target="#myCarousel" data-slide-to="1"></li>
-  	</ol>
 
-        <div class="carousel-inner">
+{% load ratings_extra %}
+
+<div class="container" style="margin-top: 20px;">
+    <div>
+      <span class="product_style">Styles:</span>
+      <i> (click on item to see recommendations page for that item)</i>
+    </div>
+
+
+    <div class="row" id="outfit_Rec">
+        <div class="carousel slide row" id="myCarousel" data-interval="false">
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+            </ol>
+
+          <div class="carousel-inner">
             <div class="item active row">
-            {% for outfit in outfits %}
-                <div class="span4">
+                {% for outfit in outfits %}
                     {% include 'recommender/showoutfit.html' with outfit=outfit ctr=forloop.counter high_level_category_reverse=high_level_category_reverse occasion_reverse=occasion_reverse style_reverse=style_reverse %}
-                </div>
                 {% if forloop.counter|divisibleby:"3" %}
             </div>
-                    {% if forloop.last %}
-                    {% else %}
+            {% if forloop.last %}
+            {% else %}
             <div class="item row">
-                    {% endif %}
                 {% endif %}
-            {% endfor %}
-        </div><!--carousel-inner-->
-        <a data-slide="prev" href="#myCarousel" class="left carousel-control">‹</a>
-        <a data-slide="next" href="#myCarousel" class="right carousel-control">›</a>
-    </div><!--carousel-->
-</div> <!--row-->
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div> <!--carousel-inner-->
+
+            <a data-slide="prev" href="#myCarousel" class="left carousel-control">‹</a>
+            <a data-slide="next" href="#myCarousel" class="right carousel-control">›</a>
+        </div><!--carousel-->
+    </div> <!--row-->
+</div> <!--container -->
