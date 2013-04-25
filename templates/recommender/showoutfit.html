@@ -45,7 +45,7 @@
 
     <br>
 
-    <div class="product_outfit_items">
+    <div class="product_outfit_items" style="margin-bottom: 10px;">
         {% for item in outfit.1 %}
 		{% if item.price > 0 %}
         		<span><a href="{{item.id}}">{{type_reverse|get:item.type}}</a>, ${{item.price}}. </span>
