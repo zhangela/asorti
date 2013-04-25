@@ -1,11 +1,4 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript">
-    function showOverlay() {
-    //append to body
-    //alert("hello");
-    //$("#overlay").show();
-    }
-</script>
 <style>
 #overlay {
     position: absolute;
@@ -23,18 +16,21 @@
 </style>
 {% load ratings_extra %}
 <div class="row">
-    <div class="span1"></div>
+    <div class="span1" style="valign=center"></div>
     <div class="span6">
-        <span class="product_subtitle" onclick="showOverlay();">Styles:</span>&nbsp;&nbsp;&nbsp;<i> (click on item to see recommendations page for that item)</i>
+        <span class="product_subtitle" onclick="showOverlay();">Similar Items:</span>
     </div>
 </div>
 <br />
-<div class="row" id="outfit_Rec" onclick="showOverlay();">
-    <div class="span1" style="valign=center"></div>
-    {% for outfit in outfits %}
-    <div class="span4">
-        {% include 'recommender/show_associated_items.html' with outfit=outfit ctr=forloop.counter high_level_category_reverse=high_level_category_reverse occasion_reverse=occasion_reverse style_reverse=style_reverse %}
-    </div>
-    {% endfor %}
-    <!--<div class="span1" style="valign=center"><img src="{{STATIC_URL}}nextArrow.png" style="width:150px"></div>-->
-</div> <!--row-->
+
+<div class="row" id="similar_items">
+<div class="span1"></div>
+{% for item in associated_items %}
+<div class="span2">
+  <a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
+    <img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/>
+  </a><br />
+  {{item.title}},&nbsp;${{item.price}}
+</div><!--span1-->
+{% endfor %}
+</div>

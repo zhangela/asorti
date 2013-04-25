@@ -42,18 +42,19 @@ def create_and_rate_outfit(request):
             pair_rating.save()
         return redirect('createandrate')
     else:
+        store = "Topshop"
         #if form doesn't validate, show the creation page
-        tops = Item.objects.filter(type = type['tops'], store="Abercrombie")
-        dresses = Item.objects.filter(type = type['dresses'], store="Abercrombie")
-        shoes = Item.objects.filter(type = type['shoes'], store="Abercrombie")
-        accessories = Item.objects.filter(type = type['accessories'], store="Abercrombie")
-        jeans = Item.objects.filter(type = type['jeans'], store="Abercrombie")
-        leggings_pants = Item.objects.filter(type = type['leggings-pants'], store="Abercrombie")
-        bags_and_purses = Item.objects.filter(type = type['bags-and-purses'], store="Abercrombie")
-        jewelry = Item.objects.filter(type = type['jewelry'], store="Abercrombie")
-        skirts = Item.objects.filter(type = type['skirts'], store="Abercrombie")
-        shorts = Item.objects.filter(type = type['shorts'], store="Abercrombie")
-        outerwear = Item.objects.filter(type = type['outerwear'], store="Abercrombie")
+        tops = Item.objects.filter(type = type['tops'], store=store)
+        dresses = Item.objects.filter(type = type['dresses'], store=store)
+        shoes = Item.objects.filter(type = type['shoes'], store=store)
+        accessories = Item.objects.filter(type = type['accessories'], store=store)
+        jeans = Item.objects.filter(type = type['jeans'], store=store)
+        leggings_pants = Item.objects.filter(type = type['leggings-pants'], store=store)
+        bags_and_purses = Item.objects.filter(type = type['bags-and-purses'], store=store)
+        jewelry = Item.objects.filter(type = type['jewelry'], store=store)
+        skirts = Item.objects.filter(type = type['skirts'], store=store)
+        shorts = Item.objects.filter(type = type['shorts'], store=store)
+        outerwear = Item.objects.filter(type = type['outerwear'], store=store)
         types = [tops, dresses, shoes, accessories, jeans, leggings_pants, bags_and_purses, jewelry, skirts, shorts, outerwear]
 
     context = {'types' : {'Tops' : tops, 'Dresses' : dresses, 'Shoes' : shoes, 'Accessories' : accessories, 'Jeans' : jeans, 'Leggings_and_Pants' : leggings_pants, 'Bags_and_Purses' : bags_and_purses, 'Jewelry' : jewelry, 'Skirts' : skirts, 'Shorts' : shorts, 'Outerwear' : outerwear} }

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block recommendation %}
-{% include 'recommender/associated_items_detail.html' with outfits=outfits high_level_category_reverse=high_level_category_reverse occasion_reverse=occasion_reverse style_reverse=style_reverse %}
+{% include 'recommender/associated_items_detail.html' with associated_items=associated_items high_level_category_reverse=high_level_category_reverse occasion_reverse=occasion_reverse style_reverse=style_reverse %}
 {% endblock %}
 
 {% block script %}
