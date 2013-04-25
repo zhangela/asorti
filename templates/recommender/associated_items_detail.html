@@ -15,8 +15,8 @@
 }
 </style>
 {% load ratings_extra %}
+<div class="container">
 <div class="row">
-    <div class="span1" style="valign=center"></div>
     <div class="span6">
         <span class="product_subtitle" onclick="showOverlay();">Similar Items:</span>
     </div>
@@ -24,13 +24,22 @@
 <br />
 
 <div class="row" id="similar_items">
-<div class="span1"></div>
+<div cddlass="span1"></div>
 {% for item in associated_items %}
 <div class="span2">
-  <a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
-    <img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/>
+	        {% if item.title == "" %}
+                <a title="Topshop {{type_reverse|get:item.type|title}}, $42.0" href='{{item.id}}'>
+        {% else %}
+  		<a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
+    	{% endif %}
+	<img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/>
   </a><br />
-  {{item.title}},&nbsp;${{item.price}}
-</div><!--span1-->
+	{% if item.title == "" %}
+		Topshop {{type_reverse|get:item.type|title}}, $42.0
+	{% else %}
+  	{{item.title}},&nbsp;${{item.price}}
+	{% endif %}
+</div>
 {% endfor %}
+</div>
 </div>
