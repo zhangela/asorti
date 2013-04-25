@@ -38,18 +38,30 @@
 
           <div class="span6">
               <span class="product_title">
+		{% if item.title == "" %}
+                        Topshop {{type_reverse|get:item.type|title}}
+                {% else %}
                 {{item.title}}
+		{% endif %}
               </span>
 
               <span class="product_price" id="text-price">
-                  <span >${{item.price}}</span>
-              </span>
+		{% if item.title == "" %}
+			<span>$42.0</span>
+		{% else %}
+                  	<span >${{item.price}}</span>
+              	{% endif %}
+		</span>
 
               <div class="row">
                 <div class="description span4">
-                  <div class="product_subtitle">Description </div>
-                  <div class="product_description">
-                	{{item.description_web}}  
+                  <div class="product_subtitle">Description </div>  	
+			<div class="product_description">
+                	{% if item.title == "" %}
+				One of this season's favorites. Perfect for any occasion. Machine washable.
+			{% else %}
+				{{item.description_web}}  
+			{% endif %}
 		</div>
 
                   <div class="product_subtitle">Details </div>
@@ -68,7 +80,13 @@
                   <div class="product_subtitle">Color</div>
                     <ul class="options articles clearfix" id="options-articles">
                       <li class="act" id="product_colors">
-                        <span class="product_description">{{item.color}}</span>
+                        <span class="product_description">
+				{% if item.title == "" %}	
+					See product image.
+				{% else %}
+					{{item.color}}
+				{% endif %}
+			</span>
                       </li>
                     </ul>
 

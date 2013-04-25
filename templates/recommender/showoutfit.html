@@ -1,3 +1,13 @@
+
+<script>
+        $("#outfit").click(function() {
+        // This sends us an event every time a user clicks the button
+                mixpanel.track("Recommendations clicked."); 
+        });
+</script>
+
+
+
 {% load ratings_extra %}
 <div class="span4 row" id="outfit">
 
@@ -5,8 +15,12 @@
         <div class="span2" id='accessories_area'>
             {% for item in outfit.1 %}
             {% if item.high_level_category == 1 %}
-            <a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
-                <img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/>
+		{% if item.title == "" %}
+			<a title="Topshop {{type_reverse|get:item.type|title}}, $42.0" href='{{item.id}}'>
+		{% else %}
+            		<a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
+                {% endif %}
+			<img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/>
             </a>
             <br/>
             {% endif %}
@@ -16,8 +30,12 @@
         <div class="span2" id='shoes_area'>
             {% for item in outfit.1 %}
             {% if item.high_level_category != 1  %}
-            <a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
-                <img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/>
+           	{% if item.title == "" %}
+                        <a title="Topshop {{type_reverse|get:item.type|title}}, $42.0" href='{{item.id}}'>
+		{% else %}
+		 	<a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
+                {% endif %}
+		<img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/>
             </a>
             <br />
             {% endif %}
@@ -29,8 +47,12 @@
 
     <div class="product_outfit_items">
         {% for item in outfit.1 %}
-        <span><a href="{{item.id}}">{{type_reverse|get:item.type}}</a>, ${{item.price}}. </span>
-        {% endfor %}
+		{% if item.price > 0 %}
+        		<span><a href="{{item.id}}">{{type_reverse|get:item.type}}</a>, ${{item.price}}. </span>
+        	{% else %}
+			<span><a href="{{item.id}}">{{type_reverse|get:item.type|title}}</a>, $42.0. </span>
+		{% endif %}
+	{% endfor %}
     </div>
 
     <div class="not_impl">
