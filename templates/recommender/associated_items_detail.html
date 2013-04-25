@@ -5,6 +5,10 @@
         $("#similar_items").click(function() {
                 mixpanel.track("similar items clicked."); 
         });
+
+        $(".similar_item").click(function() {
+                mixpanel.track("similar item clicked."); 
+        });
 </script>
 
 
@@ -35,7 +39,7 @@
 <div class="row" id="similar_items">
 <div cddlass="span1"></div>
 {% for item in associated_items %}
-<div class="span2">
+<div class="span2 similar_item">
 	        {% if item.title == "" %}
                 <a title="Topshop {{type_reverse|get:item.type|title}}, $42.0" href='{{item.id}}'>
         {% else %}
