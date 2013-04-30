@@ -39,6 +39,31 @@ def catalog(request):
 
     return render(request, 'data/catalog.html', {'items' : item_subset})
 
+def catalog1(request):
+    store = request.GET.get('store', None)
+    category = request.GET.get('category', None)
+    print store, category
+    if store and category:
+        items = Item.objects.filter(store=store, type=type[category]).exclude(title="")
+    elif store:
+        items = Item.objects.filter(store=store).exclude(title="")
+    elif category:
+        items = Item.objects.filter(type=type[category]).exclude(title="")
+    else:
+        items = Item.objects.all()
+
+    paginator = Paginator(items, 50)
+
+    page = request.GET.get('page')
+    try:
+        item_subset = paginator.page(page)
+    except PageNotAnInteger:
+        item_subset = paginator.page(1)
+    except EmptyPage:
+        item_subset = paginator.page(paginator.num_pages)
+
+    return render(request, 'data/catalog1.html', {'items' : item_subset})
+
 def catalog_by_store(request, store):
     return
  

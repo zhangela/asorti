@@ -17,6 +17,27 @@ OUTFIT_WITHOUT_ITEM_TYPE = 3
 num_rec = 6
 
 
+def hybrid(request, item_id):
+    # get rec
+    input = {"class" : "item", "item_id" : item_id}
+    curr_rec = []
+    outfits_used = []
+    for i in range(num_rec):
+        rec = get_recommendation_helper(request, input, outfits_used)
+        if rec == None:
+            break
+        curr_rec = curr_rec + [rec]
+        outfits_used = outfits_used + [rec[0]]
+    item = Item.objects.get(id=item_id)
+    type = item.type
+    store = item.store
+
+    list_of_associated_items = Item.objects.filter(type=type, store=store).order_by('?')[:
+6]
+
+    context = {'associated_items' : list_of_associated_items, 'outfits' : curr_rec, 'item' : Item.objects.get(id=item_id), 'high_level_category_reverse' : high_level_category_reverse, 'style_reverse' : style_reverse, 'occasion_reverse' : occasion_reverse, 'type_reverse' : type_reverse}
+    return render(request, 'recommender/hybrid.html', context)
+
 def get_associated_items(request, item_id):
     item = Item.objects.get(id=item_id)
     type = item.type

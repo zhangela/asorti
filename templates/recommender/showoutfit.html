@@ -1,4 +1,3 @@
-
 <script>
         $("#outfit").click(function() {
 		mixpanel.track("outfit clicked."); 
@@ -14,13 +13,15 @@
             {% for item in outfit.1 %}
             {% if item.high_level_category == 1 %}
 		{% if item.title == "" %}
-			<a title="Topshop {{type_reverse|get:item.type|title}}, $42.0" href='{{item.id}}'>
+			<a id="item-{{item.id}}" title="Topshop {{type_reverse|get:item.type|title}}, $42.0" href='{{item.id}}'>
 		{% else %}
-            		<a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
+            		<a id="item-{{item.id}}" title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
                 {% endif %}
 			<img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/>
             </a>
             <br/>
+            <!--<button class="item_in_outfit" data="item-{{item.id}}">Remind me later</button>
+            <br /> -->
             {% endif %}
             {% endfor %}
         </div>
@@ -29,13 +30,15 @@
             {% for item in outfit.1 %}
             {% if item.high_level_category != 1  %}
            	{% if item.title == "" %}
-                        <a title="Topshop {{type_reverse|get:item.type|title}}, $42.0" href='{{item.id}}'>
+                        <a id="item-{{item.id}}" title="Topshop {{type_reverse|get:item.type|title}}, $42.0" href='{{item.id}}'>
 		{% else %}
-		 	<a title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
+		 	<a id="item-{{item.id}}" title="{{item.title}}, ${{item.price}}" href='{{item.id}}'>
                 {% endif %}
 		<img src='{{STATIC_URL}}{{item.filename}}' style="height:150px"/>
             </a>
             <br />
+            <!--<button class="item_in_outfit" data="item-{{item.id}}">Remind me later</button>
+            <br />-->
             {% endif %}
             {% endfor %}
         </div>
@@ -65,3 +68,11 @@
     <button type="submit" class="btn product_button_buy not_impl">BUY OUTFIT</button>
 </div>
 
+
+
+
+<script>
+        $("#outfit").click(function() {
+                mixpanel.track("outfit clicked (show outfits)"); 
+        });
+</script>
